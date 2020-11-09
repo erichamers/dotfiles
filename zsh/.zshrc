@@ -104,3 +104,5 @@ powerline-daemon -q
 . /usr/lib/python3.8/site-packages/powerline/bindings/zsh/powerline.zsh
 
 alias qb=qutebrowser
+
+export PYTHONPATH=/usr/lib/python3.8/site-packages

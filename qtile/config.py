@@ -29,8 +29,11 @@ from typing import List  # noqa: F401
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+from libqtile import qtile
 from libqtile.utils import guess_terminal
 
+
+terminal = guess_terminal()
 
 colors = [["#292d3e", "#292d3e"],
           ["#434758", "#434758"],
@@ -40,12 +43,14 @@ colors = [["#292d3e", "#292d3e"],
           ["#668bd7", "#668bd7"],
           ["#e1acff", "#e1acff"]] 
 
+rofi_cmd = 'rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show drun'  
+
 def generate_widgets():
     w = [
         insert_separator(),
         widget.Image(
             filename='~/Pictures/manjaro_logo.png',
-            margin=4,
+            margin=5,
         ),
         insert_separator(),
         widget.WindowName(),
@@ -61,7 +66,7 @@ def generate_widgets():
         insert_separator(bg=5),
         widget.Memory(
             format='RAM {MemUsed}M/{MemTotal}M',
-            background=colors[5]
+            background=colors[5],
         ),
         insert_separator(bg=5),
         generate_connector(bg=4, fg=5),
@@ -74,7 +79,7 @@ def generate_widgets():
         widget.Net(
             interface="enp4s0",
             padding=5,
-            format='{down} \u2192\u2191 {up}',
+            format='{down} \u2193 \u2191 {up}',
             background=colors[5],
         ),
         insert_separator(bg=5),
@@ -107,13 +112,10 @@ def generate_connector(bg, fg):
     return w
 
 mod = "mod4"
-terminal = guess_terminal()
-
-rofi_cmd = 'rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show drun'  
 
 keys = [
     Key(
-        [mod, "shift"], "Return",
+        [mod], "space",
         lazy.spawn(rofi_cmd),
         desc='Dmenu Run Launcher'
     ),
@@ -123,8 +125,6 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(),
-        desc="Move window focus to other window"),
 
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
@@ -218,6 +218,10 @@ screens = [
     Screen(
         wallpaper='~/Pictures/1094135.jpg',
         wallpaper_mode='fill',
+        top=bar.Bar(
+            generate_widgets(),
+            24,
+        ),
     ),
     Screen(
         wallpaper='~/Pictures/1094135.jpg',

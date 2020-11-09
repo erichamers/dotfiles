@@ -1,61 +1,46 @@
-set number
-
 syntax on 
+
 set autoindent
-set expandtab
-set ts=4 sw=4
-
 set background=dark
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-set showtabline=2
-
-" Always show statusline
+set expandtab
 set laststatus=2
+set number
+set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+set ruler
 
-" Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set showcmd
+set showtabline=2
+set sw=4
+set sts=4
+set splitbelow
+set ts=4
+set textwidth=120
+set ts=4 sw=4
 set t_Co=256
+
+" ############# Plugins Config ############# 
+set nocompatible              
+filetype off                 
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'jiangmiao/auto-pairs'
 
-" The following are examples of different 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+call vundle#end()           
+filetype plugin indent on  
 
-" Split config
-set splitbelow
-
-" Netrw config
 let g:netrw_banner = 0
 
-"############# Custom Mappings ############# 
+" ############# Custom Mappings ############# 
 
 " JSON Formatting
 com! FormatJSON %!python -m json.tool
 nmap <C-j> :FormatJSON<CR>
 
 " File Explorer
-map <C-e> :Sex<CR>
+map <C-e> :Explore<CR>
 
 " Window commands
 nmap <C-q> :q<CR>
@@ -68,8 +53,11 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
+" Buffers Mapping
+map <silent> <C-S-b> :bd<CR>
+map <silent> <C-Tab> :bnext<CR>
+map <silent> <C-S-Tab> :bprevious<CR>
 
-
-
-
-
+set cursorline
+hi CursorLine  cterm=NONE ctermbg=235 ctermfg=NONE
+hi CursorLineNr cterm=bold
