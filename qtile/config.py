@@ -26,13 +26,15 @@
 
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile import bar, layout, widget, hook
+from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
-from libqtile import qtile
 from libqtile.utils import guess_terminal
 
+import os
+import subprocess
 
+mod = "mod4"
 terminal = guess_terminal()
 
 colors = [["#292d3e", "#292d3e"],
@@ -40,19 +42,29 @@ colors = [["#292d3e", "#292d3e"],
           ["#ffffff", "#ffffff"],
           ["#ff5555", "#ff5555"],
           ["#8d62a9", "#8d62a9"],
-          ["#668bd7", "#668bd7"],
-          ["#e1acff", "#e1acff"]] 
+          ["#667bd7", "#668bd7"],
+          ["#e1acff", "#e1acff"]]
 
-rofi_cmd = 'rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show drun'  
+rofi_cmd = 'rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show drun'
+picom_cmd = 'picom --config /home/eric/.config/picom/picom.conf'
 
 def generate_widgets():
     w = [
         insert_separator(),
         widget.Image(
-            filename='~/Pictures/manjaro_logo.png',
-            margin=5,
+            filename='~/Pictures/arch_logo2.png',
+            margin=2,
+            mouse_callbacks={'Button1': lambda qtile: qtile.cmd_spawn(rofi_cmd)}
         ),
         insert_separator(),
+        widget.GroupBox(
+            font='ubuntu bold',
+            fontsize=9,
+            highlight_method='line',
+            highlight_color='161616',
+            borderwidth=2,
+            rounded=False,
+        ),
         widget.WindowName(),
         insert_separator(),
         widget.Prompt(),
@@ -83,7 +95,7 @@ def generate_widgets():
             background=colors[5],
         ),
         insert_separator(bg=5),
-        generate_connector(bg=4, fg=5),                
+        generate_connector(bg=4, fg=5),
         insert_separator(bg=4),
         widget.Clock(
             background=colors[4],
@@ -103,120 +115,98 @@ def insert_separator(width=10, bg=0):
 
 def generate_connector(bg, fg):
     w = widget.TextBox(
-        text='\uE0C6',
+        text='\uE0B2',
         fontsize=20,
-        foreground=colors[fg],
-        background=colors[bg],
+        foreground=colors[bg],
+        background=colors[fg],
         padding=0
     )
     return w
 
-mod = "mod4"
-
 keys = [
-    Key(
-        [mod], "space",
-        lazy.spawn(rofi_cmd),
-        desc='Dmenu Run Launcher'
-    ),
+    Key([mod], 'b', lazy.spawn('qutebrowser'), desc='Qutebrowser'),
+
+    # Settings relative to XMonadLayout
+
+    Key([mod], "h", lazy.layout.left()),
+    Key([mod], "l", lazy.layout.right()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
+    Key([mod, "shift"], "h", lazy.layout.swap_left()),
+    Key([mod, "shift"], "l", lazy.layout.swap_right()),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
+    Key([mod], "Up", lazy.layout.grow()),
+    Key([mod], "Down", lazy.layout.shrink()),
+    Key([mod], "m", lazy.layout.normalize()),
+    Key([mod], "o", lazy.layout.maximize()),
+
+    # Switch screens
     Key([mod], 'period', lazy.next_screen(), desc='Next monitor'),
-    # Switch between windows
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
 
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
-        desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
-        desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
-        desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod], "space", lazy.spawn(rofi_cmd),
+        desc="Run dmenu"),
 
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(),
-        desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(),
-        desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(),
-        desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    #Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
-    #    desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], 'p', lazy.spawn(picom_cmd), desc='picom'),
+    Key([mod, 'shift'], 'p', lazy.spawn('killall picom'), desc='picom off'),
+
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(prompt="Run "),
+    Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
+    Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+group_names = [("WWW", {'layout': 'monadtall'}),
+               ("DEV", {'layout': 'monadtall'}),
+               ("SYS", {'layout': 'monadtall'})]
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
+groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
-    ])
+letter_map = {1: 'a', 2:'s', 3:'d'}
+
+for i, (name, kwargs) in enumerate(group_names, 1):
+    keys.append(Key([mod], letter_map[i], lazy.group[name].toscreen()))        
+    keys.append(Key([mod, "shift"], letter_map[i], lazy.window.togroup(name)))
 
 layout_theme = {
-    'margin': 10,
-    'border_focus': 'ffffff'
+    'margin': 50,
+    'border_focus': colors[4][1],
+    'border_width': 1,
+    'change_ratio': 0.01,
+    'single_border_width': 0,
 }
 
 layouts = [
-    # layout.Columns(border_focus_stack='#d75f5f'),
     # layout.Max(),
-    # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
+    # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
+    # layout.Columns(),
     # layout.Matrix(),
     layout.MonadTall(**layout_theme),
     # layout.MonadWide(),
     # layout.RatioTile(),
-    # layout.Tile(**layout_theme),
+    # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
-    # font='Cousine for Powerline',
-    # font='Droid Sans Mono for Powerline',
-    font='Source Code Pro for Powerline',
-    # font='noto mono for powerline ',
-    # font='profont for powerline',
+    font='source code pro for powerline',
     fontsize=12,
     padding=5,
-    background=colors[0]
+    background=colors[0],
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper='~/Pictures/1094135.jpg',
+        wallpaper='~/Pictures/wp4946045-anime-scenery-4k-wallpapers.jpg',
         wallpaper_mode='fill',
         top=bar.Bar(
             generate_widgets(),
@@ -224,14 +214,13 @@ screens = [
         ),
     ),
     Screen(
-        wallpaper='~/Pictures/1094135.jpg',
+        wallpaper='~/Pictures/wp4946045-anime-scenery-4k-wallpapers.jpg',
         wallpaper_mode='fill',
         top=bar.Bar(
-            generate_widgets(),
+            generate_widgets(), 
             24,
         ),
     ),
-    
 ]
 
 # Drag floating layouts.
@@ -251,27 +240,30 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
-    Match(wm_type='utility'),
-    Match(wm_type='notification'),
-    Match(wm_type='toolbar'),
-    Match(wm_type='splash'),
-    Match(wm_type='dialog'),
-    Match(wm_class='file_progress'),
-    Match(wm_class='confirm'),
-    Match(wm_class='dialog'),
-    Match(wm_class='download'),
-    Match(wm_class='error'),
-    Match(wm_class='notification'),
-    Match(wm_class='splash'),
-    Match(wm_class='toolbar'),
-    Match(wm_class='confirmreset'),  # gitk
-    Match(wm_class='makebranch'),  # gitk
-    Match(wm_class='maketag'),  # gitk
-    Match(wm_class='ssh-askpass'),  # ssh-askpass
-    Match(title='branchdialog'),  # gitk
-    Match(title='pinentry'),  # GPG key password entry
+    {'wmclass': 'confirm'},
+    {'wmclass': 'dialog'},
+    {'wmclass': 'download'},
+    {'wmclass': 'error'},
+    {'wmclass': 'file_progress'},
+    {'wmclass': 'notification'},
+    {'wmclass': 'splash'},
+    {'wmclass': 'toolbar'},
+    {'wmclass': 'confirmreset'},  # gitk
+    {'wmclass': 'makebranch'},  # gitk
+    {'wmclass': 'maketag'},  # gitk
+    {'wname': 'branchdialog'},  # gitk
+    {'wname': 'pinentry'},  # GPG key password entry
+    {'wmclass': 'ssh-askpass'},  # ssh-askpass
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
+# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
+# string besides java UI toolkits; you can see several discussions on the
+# mailing lists, GitHub issues, and other WM documentation that suggest setting
+# this string if your java app doesn't work correctly. We may as well just lie
+# and say that we're a working one by default.
+#
+# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
+# java that happens to be on java's whitelist.
 wmname = "LG3D"

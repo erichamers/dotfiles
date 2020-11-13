@@ -1,7 +1,7 @@
 # /usr/bin/bash
 
 # Target config
-CONFIG_DIR=$HOME"/projects/scripts/dotfiles/"
+CONFIG_DIR=$HOME"/projects/dotfiles/"
 QTILE_DIR=$CONFIG_DIR"qtile/"
 QUTEBROWSER_DIR=$CONFIG_DIR"qutebrowser/"
 VIM_DIR=$CONFIG_DIR"vim/"

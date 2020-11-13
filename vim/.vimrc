@@ -18,6 +18,8 @@ set textwidth=120
 set ts=4 sw=4
 set t_Co=256
 
+set clipboard=unnamedplus
+
 " ############# Plugins Config ############# 
 set nocompatible              
 filetype off                 
