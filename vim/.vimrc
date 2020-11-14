@@ -60,6 +60,6 @@ map <silent> <C-S-b> :bd<CR>
 map <silent> <C-Tab> :bnext<CR>
 map <silent> <C-S-Tab> :bprevious<CR>
 
-set cursorline
-hi CursorLine  cterm=NONE ctermbg=235 ctermfg=NONE
-hi CursorLineNr cterm=bold
+" set cursorline
+" hi CursorLine  cterm=NONE ctermbg=235 ctermfg=NONE
+" hi CursorLineNr cterm=bold

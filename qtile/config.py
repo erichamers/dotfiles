@@ -34,6 +34,10 @@ from libqtile.utils import guess_terminal
 import os
 import subprocess
 
+@hook.subscribe.startup
+def autostart():
+    subprocess.Popen(['picom'])
+
 mod = "mod4"
 terminal = guess_terminal()
 
@@ -46,13 +50,12 @@ colors = [["#292d3e", "#292d3e"],
           ["#e1acff", "#e1acff"]]
 
 rofi_cmd = 'rofi -combi-modi window,drun,ssh -theme solarized -font "hack 10" -show drun'
-picom_cmd = 'picom --config /home/eric/.config/picom/picom.conf'
 
 def generate_widgets():
     w = [
         insert_separator(),
         widget.Image(
-            filename='~/Pictures/arch_logo2.png',
+            filename='/home/eric/.config/qtile/img/arch_logo.png',
             margin=2,
             mouse_callbacks={'Button1': lambda qtile: qtile.cmd_spawn(rofi_cmd)}
         ),
@@ -62,32 +65,53 @@ def generate_widgets():
             fontsize=9,
             highlight_method='line',
             highlight_color='161616',
+            inactive='a9a9a9',
+            margin_y=5,
             borderwidth=2,
             rounded=False,
+        ),
+        widget.Notify(
+            background=colors[3]
         ),
         widget.WindowName(),
         insert_separator(),
         widget.Prompt(),
         widget.TextBox(
-            text='\uE0B2',
+            text='\ue0b2',
             fontsize=20,
             foreground=colors[5],
             background=colors[0],
             padding=0
         ),
         insert_separator(bg=5),
+        widget.TextBox(
+            text='\uf2db',
+            background=colors[5],
+            fontsize=20,
+        ),
         widget.Memory(
-            format='RAM {MemUsed}M/{MemTotal}M',
+            format='{MemUsed}M/{MemTotal}M',
             background=colors[5],
         ),
         insert_separator(bg=5),
         generate_connector(bg=4, fg=5),
         insert_separator(bg=4),
+        widget.TextBox(
+            text='\uf85a',
+            background=colors[4],
+            fontsize=22,
+        ),
         widget.CPU(
+            format='{freq_current}GHz {load_percent}%',
             background=colors[4]
         ),
         insert_separator(bg=4),
         generate_connector(bg=5, fg=4),
+        widget.TextBox(
+            text=' \uf6ff',
+            background=colors[5],
+            fontsize=22,
+        ),
         widget.Net(
             interface="enp4s0",
             padding=5,
@@ -96,7 +120,11 @@ def generate_widgets():
         ),
         insert_separator(bg=5),
         generate_connector(bg=4, fg=5),
-        insert_separator(bg=4),
+        widget.TextBox(
+            text=' \uf64f',
+            background=colors[4],
+            fontsize=22,
+        ),
         widget.Clock(
             background=colors[4],
             format='%b.%e  %I:%M:%S %p'
@@ -115,10 +143,10 @@ def insert_separator(width=10, bg=0):
 
 def generate_connector(bg, fg):
     w = widget.TextBox(
-        text='\uE0B2',
+        text='\ue0c6',
         fontsize=20,
-        foreground=colors[bg],
-        background=colors[fg],
+        foreground=colors[fg],
+        background=colors[bg],
         padding=0
     )
     return w
@@ -144,16 +172,18 @@ keys = [
     # Switch screens
     Key([mod], 'period', lazy.next_screen(), desc='Next monitor'),
 
+    # Rofi
     Key([mod], "space", lazy.spawn(rofi_cmd),
         desc="Run dmenu"),
 
+    # Spawn apps
+    Key([mod], "m", lazy.spawn('konsole -e tail -c 2000 -f .local/share/qtile/qtile.log')),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
-    Key([mod], 'p', lazy.spawn(picom_cmd), desc='picom'),
-    Key([mod, 'shift'], 'p', lazy.spawn('killall picom'), desc='picom off'),
-
+    # Window Manipulation
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
+    # Qtile Mappings
     Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
     Key([mod], "r", lazy.spawncmd(),
@@ -173,8 +203,8 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], letter_map[i], lazy.window.togroup(name)))
 
 layout_theme = {
-    'margin': 50,
-    'border_focus': colors[4][1],
+    'margin': 60,
+    'border_focus': 'ffffff',
     'border_width': 1,
     'change_ratio': 0.01,
     'single_border_width': 0,
@@ -206,7 +236,7 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper='~/Pictures/wp4946045-anime-scenery-4k-wallpapers.jpg',
+        wallpaper='~/Pictures/artur-sadlos-to-sh250-ooh-01-01-wip002i.jpg',
         wallpaper_mode='fill',
         top=bar.Bar(
             generate_widgets(),
@@ -214,7 +244,7 @@ screens = [
         ),
     ),
     Screen(
-        wallpaper='~/Pictures/wp4946045-anime-scenery-4k-wallpapers.jpg',
+        wallpaper='~/Pictures/artur-sadlos-to-sh250-ooh-01-01-wip002i.jpg',
         wallpaper_mode='fill',
         top=bar.Bar(
             generate_widgets(), 
