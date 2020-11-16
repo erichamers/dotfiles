@@ -1,0 +1,100 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[bar/root1]
+monitor = ${env:MONITOR:} 
+width = 100%
+override-redirect = true
+module-margin-left = 0
+module-margin-right = 2
+font-0 = Misc Termsynu:size=9;2 
+spacing = 1
+padding-right = 2
+
+[bar/modules]
+inherit = bar/root1
+modules-right = wired-network cpu memory date
+modules-left = i3
+dim-value = 1.0
+background = #00000000
+height = 30 
+offset-y = 5
+
+[bar/top]
+inherit = bar/root1
+height = 23 
+offset-y = 9
+background = #073642
+modules-center = xwindow 
+override-redirect = true
+
+[module/i3]
+type = internal/i3
+index-sort = true
+strip-wsnumbers = true
+
+format = <label-state> <label-mode>
+label-focused = %name%
+label-focused-padding = 2
+label-focused-margin = 1
+label-focused-foreground = #fff
+label-focused-background = #268bd2
+label-visible = %name%
+label-visible-padding = 2
+label-visible-margin = 1
+label-unfocused= %name%
+label-unfocused-padding = 2
+label-unfocused-margin = 1
+
+[module/xwindow]
+type = internal/xwindow
+interval = 1
+label-maxlen = 50
+
+[module/wired-network]
+type = internal/network
+interface = enp4s0
+interval = 1.0
+format-disconnected = <label-disconnected>
+label-disconnected = connection failed 
+label-connected =%downspeed:9%   ↓ ↑%upspeed:9% 
+label-connected-background = #eee8d5
+label-connected-foreground = #000
+label-connected-padding = 2
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format-background = #b58900
+format-padding = 2
+label = cpu %percentage%%
+
+[module/memory]
+type = internal/memory
+label = memory %gb_used% / %gb_total% 
+format-padding = 2
+format-background = #dc322f
+
+[module/date]
+type = internal/date
+interval = 1.0
+date = %a. %e, %l:%M:%S 
+format-padding = 2
+format-background = #6c71c4
+
+
