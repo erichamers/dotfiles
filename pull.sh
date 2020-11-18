@@ -19,8 +19,9 @@ I3_FILE=$ROOT_CONF"/i3/config"
 I3_SCRIPT1=$ROOT_CONF"/i3/launch_modules.sh"
 I3_SCRIPT2=$ROOT_CONF"/i3/launch_top.sh"
 POLYBAR_FILE=$ROOT_CONF"/polybar/config"
+WALLPAPERS_DIR=$HOME"/Pictures/wallpapers"
 
-sourceDirs=($CONFIG_DIR $QTILE_DIR $QUTEBROWSER_DIR $VIM_DIR $ZSH_DIR $I3_DIR $POLYBAR_DIR)
+sourceDirs=($CONFIG_DIR $QTILE_DIR $QUTEBROWSER_DIR $VIM_DIR $ZSH_DIR $I3_DIR $POLYBAR_DIR $WALLPAPERS_DIR)
 
 echo "Creating folder structure"
 if ! [ -d "$CONFIG_DIR" ]; then
@@ -57,3 +58,6 @@ cp -f $I3_SCRIPT2 $I3_DIR
 
 echo "==== Polybar ===="
 cp -f $POLYBAR_FILE $POLYBAR_DIR
+
+echo "==== Wallpapers ===="
+cp -fr  $WALLPAPERS_DIR $CONFIG_DIR 
