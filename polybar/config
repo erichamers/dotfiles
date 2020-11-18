@@ -16,85 +16,97 @@
 ;
 ;==========================================================
 
-[bar/root1]
+[bar/top]
 monitor = ${env:MONITOR:} 
 width = 100%
+height = 3%
+background = #282a36
+font-0 = agave nerd font mono:size=9;2
+font-1 = agave nerd font mono:size=15;4
+font-2 = agave nerd font mono:size=16;5
+font-3 = agave nerd font mono:size=16;6
+padding = 3
 override-redirect = true
-module-margin-left = 0
-module-margin-right = 2
-font-0 = Misc Termsynu:size=9;2 
-spacing = 1
-padding-right = 2
+wm-restack = i3
+module-margin = 1
 
-[bar/modules]
-inherit = bar/root1
-modules-right = wired-network cpu memory date
-modules-left = i3
-dim-value = 1.0
-background = #00000000
-height = 30 
-offset-y = 5
+modules-center = title separator date 
+modules-right = pulseaudio temperature
+modules-left = i3 separator computer-symbol cpu memory wired-network
 
-[bar/top]
-inherit = bar/root1
-height = 23 
-offset-y = 9
-background = #073642
-modules-center = xwindow 
-override-redirect = true
+[module/title]
+type = internal/xwindow
+label-maxlen = 50
+
+[module/date]
+type = internal/date
+label = %{F#ff5555}%{T2}%{T-}%{F-}  %date% %time%
+
+interval = 1.0
+date = %A, %d %B at %H:%M:%S%
 
 [module/i3]
 type = internal/i3
-index-sort = true
+index-sort = true 
 strip-wsnumbers = true
-
 format = <label-state> <label-mode>
-label-focused = %name%
-label-focused-padding = 2
-label-focused-margin = 1
-label-focused-foreground = #fff
-label-focused-background = #268bd2
-label-visible = %name%
-label-visible-padding = 2
-label-visible-margin = 1
-label-unfocused= %name%
-label-unfocused-padding = 2
-label-unfocused-margin = 1
 
-[module/xwindow]
-type = internal/xwindow
-interval = 1
-label-maxlen = 50
-
-[module/wired-network]
-type = internal/network
-interface = enp4s0
-interval = 1.0
-format-disconnected = <label-disconnected>
-label-disconnected = connection failed 
-label-connected =%downspeed:9%   ↓ ↑%upspeed:9% 
-label-connected-background = #eee8d5
-label-connected-foreground = #000
-label-connected-padding = 2
+label-focused = %{O2}%{T2}%{F#ff5555}%{T-}
+label-focused-padding = 2 
+label-unfocused-padding = 2 
+label-visible = %{O2}%{T2}%{F#f8f8f2}%{T-}
+label-unfocused = %{O2}%{T2}%{F#f8f8f2}%{T-}
+label-visible-padding = 2 
+label-focused-foreground = #ffffff
+label-visible-foreground = #44475a
 
 [module/cpu]
 type = internal/cpu
 interval = 0.5
-format-background = #b58900
-format-padding = 2
-label = cpu %percentage%%
+
+label = %{T3}%{O8}%{F#ffb86c}%{F-}%{T-}%{O5} %percentage%%
+format = <label>
 
 [module/memory]
 type = internal/memory
-label = memory %gb_used% / %gb_total% 
-format-padding = 2
-format-background = #dc322f
+interval = 1
 
-[module/date]
-type = internal/date
-interval = 1.0
-date = %a. %e, %l:%M:%S 
-format-padding = 2
-format-background = #6c71c4
+label = %{T2}%{F#8be9fd}%{F-}%{O-5} %{T-} %mb_used%
+format = <label>
 
+[module/wired-network]
+type = internal/network
+interface = enp4s0
+interval = 1
+label-connected = %{T4}%{F#f1fa8c}ﯲ%{F-}%{T-} %downspeed%
+format-connected = <label-connected>
 
+[module/temperature]
+type = internal/temperature
+label = %{O20}%{F#ff5555}%{T2}%{F-}%{T-} %temperature-c%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_08_00.4.analog-stereo
+use-ui-max = true
+interval = 5
+
+format-volume = <label-volume> <bar-volume>
+label-muted = muted
+label-volume = %percentage%% 
+
+bar-volume-width = 15 
+bar-volume-gradient = true
+bar-volume-indicator = █
+bar-volume-indicator-font = 1
+bar-volume-fill = ―
+bar-volume-fill-font = 1
+bar-volume-fill-foreground = #bd93f9
+bar-volume-empty = ― 
+bar-volume-empty-foreground = #44475a
+bar-volume-empty-font = 1
+
+[module/separator]
+type = custom/text
+content = | 
+content-foreground = #f8f8f2
