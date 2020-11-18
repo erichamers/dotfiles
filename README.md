@@ -14,7 +14,7 @@ and then run `./push.sh` to push it to github.
 
 **Current environment:**
 
-![workspace](https://i.imgur.com/Gq6OneE.jpg)
+![workspace](https://i.imgur.com/bb9ASRb.jpg)
 
 - Arch Linux
 - i3 Window Manager
