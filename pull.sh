@@ -13,6 +13,7 @@ POLYBAR_DIR=$CONFIG_DIR"polybar/"
 ROOT_CONF=$HOME"/.config/"
 QTILE_FILE=$ROOT_CONF"qtile/config.py"
 QUTEBROWSER_FILE=$ROOT_CONF"qutebrowser/config.py"
+QUTEBROWSER_QUICKMARKS=$ROOT_CONF"qutebrowser/quickmarks"
 VIM_FILE=$HOME"/.vimrc"
 ZSH_FILE=$HOME"/.zshrc"
 I3_FILE=$ROOT_CONF"/i3/config"
@@ -44,6 +45,7 @@ cp -f $QTILE_FILE $QTILE_DIR
 
 echo "==== Qutebrowser ===="
 cp -f $QUTEBROWSER_FILE $QUTEBROWSER_DIR
+cp -f $QUTEBROWSER_QUICKMARKS $QUTEBROWSER_DIR
 
 echo "==== Vim ===="
 cp -f $VIM_FILE $VIM_DIR

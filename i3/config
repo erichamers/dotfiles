@@ -183,7 +183,7 @@ bindsym $mod+Ctrl+Left resize grow width 1 px or 1 ppt
 for_window [class=".*"] border pixel 0
 
 # qutebrowser
-bindsym $mod+q exec /home/eric/apps/qutebrowser/.venv/bin/python3 -m qutebrowser
+bindsym $mod+q exec qutebrowser
 
 # autoset wallpaper at startup
 exec nitrogen --restore & 

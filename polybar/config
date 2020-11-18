@@ -82,7 +82,7 @@ label-connected = %{T4}%{F#f1fa8c}ﯲ%{F-}%{T-} %downspeed%
 format-connected = <label-connected>
 
 [module/temperature]
-type = internal/temperature
+type = internal/temperature 
 label = %{O20}%{F#ff5555}%{T2}%{F-}%{T-} %temperature-c%
 
 [module/pulseaudio]
