@@ -1,4 +1,4 @@
 function welcome
-    /bin/bash (random choice /home/eric/apps/color-scripts/color-scripts/*)
+    /bin/bash (random choice /home/eric/.config/color-scripts/*)
 end
     
