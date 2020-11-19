@@ -84,7 +84,7 @@ bindsym $mod+v split v
 bindsym $mod+Shift+space floating toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -105,20 +105,20 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # change container layout (tabbed, toggle split)
 # bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
-bindsym $mod+s layout toggle split
+bindsym $mod+p layout toggle split
 
 # open apps
 bindsym $mod+e exec nautilus
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+a move container to workspace number 1
+bindsym $mod+Shift+s move container to workspace number 2
+bindsym $mod+Shift+d move container to workspace number 3
 
 # switch to workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+9 workspace number 3
+bindsym $mod+a workspace number 1
+bindsym $mod+s workspace number 2
+bindsym $mod+d workspace number 3
 
 # workspaces
 set $ws1 1
