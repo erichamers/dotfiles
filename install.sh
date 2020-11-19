@@ -13,6 +13,7 @@ cp -r $PROJECT_DIR/"wallpapers" $HOME/"Pictures/wallpapers"
 cp -r $PROJECT_DIR/"polybar" $CONFIG_DIR
 cp -r $PROJECT_DIR/"fish" $CONFIG_DIR
 cp -r $PROJECT_DIR/"vim/.vimrc" $HOME
+cp -r $PROJECT_DIR/"color-scripts" $CONFIG_DIR
 
 if [ "$1" == "--schedule" ]; then
     cat config/crontab >> /var/spool/cron/eric
