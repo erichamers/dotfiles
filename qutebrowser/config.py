@@ -1,3 +1,4 @@
+# default config
 config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
 config.set('content.cookies.accept', 'all', 'devtools://*')
 config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}', 'https://web.whatsapp.com/')
@@ -12,14 +13,18 @@ config.set('content.javascript.enabled', True, 'devtools://*')
 config.set('content.javascript.enabled', True, 'chrome://*/*')
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
-# Custom Configuration
+# custom configuration
+config.set('downloads.position', 'bottom')
 config.set('url.default_page', 'http://google.com')
 config.set('url.start_pages', 'http://google.com')
 config.set('url.searchengines', {'DEFAULT': 'http://www.google.com/search?q={}'})
 config.set('tabs.show', 'multiple')
 
 # Keybindings
+config.bind('res', 'restart')
+config.bind('<Ctrl+j>', 'tab-move -'),
+config.bind('<Ctrl+k>', 'tab-move +'),
 config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 
-
+config.load_autoconfig()
