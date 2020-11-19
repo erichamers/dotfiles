@@ -6,11 +6,11 @@ As time goes by, there are applications that I no longer use and new ones that a
 
 ### How to use this script
 
-Currently this script only pulls the config files from the sources on local machine and push it to github.
-**TODO:** Add scripts to install the config files in the correct locations automatically.
+There are 3 bash scripts in this project that allow you to pull the files from their respective folders, to push it to
+github and to install it in the proper locations.
 
 To run the scripts, all you need to do is execute `./pull.sh` to pull all the config files from their respective folders
-and then run `./push.sh` to push it to github.
+, then run `./push.sh` to push it to github and `./install.sh` to install all the files in their respective folders.
 
 **Current environment:**
 
@@ -22,5 +22,5 @@ and then run `./push.sh` to push it to github.
 
 Utilities:
 - Fish shell
-- Qutebrowser
+- qutebrowser
 - vim
