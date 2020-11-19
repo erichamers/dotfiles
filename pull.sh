@@ -8,6 +8,7 @@ PROJECT_DIR=$HOME/"projects/dotfiles"
 I3_DIR=$CONFIG_DIR/"i3"
 QUTEBROWSER_DIR=$CONFIG_DIR/"qutebrowser"
 WALLPAPERS_DIR=$HOME/"Pictures/wallpapers"
+PICOM_DIR=$CONFIG_DIR/"picom/picom.conf"
 POLYBAR_DIR=$CONFIG_DIR/"polybar"
 FISH_DIR=$CONFIG_DIR/"fish"
 VIM_FILE=$HOME/".vimrc"
@@ -17,4 +18,5 @@ cp -r $QUTEBROWSER_DIR $PROJECT_DIR
 cp -r $WALLPAPERS_DIR $PROJECT_DIR
 cp -r $FISH_DIR $PROJECT_DIR
 cp -r $POLYBAR_DIR $PROJECT_DIR
-mkdir $PROJECT_DIR/"vim" && cp -r $VIM_FILE $PROJECT_DIR/"vim/"
+cp -r $PICOM_DIR $PROJECT_DIR
+mkdir -p $PROJECT_DIR/"vim" && cp -r $VIM_FILE $PROJECT_DIR/"vim/"
