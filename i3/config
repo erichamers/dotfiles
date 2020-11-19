@@ -173,7 +173,7 @@ set $ws3 3:sys
 # keybinds 
 bindsym $mod+Return exec terminator
 bindsym $mod+Tab workspace next
-bindsym $mod+f exec firefox
+bindsym $mod+f fullscreen 
 bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
 bindsym $mod+Ctrl+Up resize grow height 1 px or 1 ppt
 bindsym $mod+Ctrl+Down resize shrink height 1 px or 1 ppt
@@ -188,9 +188,8 @@ bindsym $mod+q exec qutebrowser
 # autoset wallpaper at startup
 exec nitrogen --restore & 
 exec picom &
-exec /bin/bash /home/eric/.config/i3/launch_top.sh &
-exec sleep 1 &
-exec /bin/bash /home/eric/.config/i3/launch_modules.sh
+exec /bin/bash /home/eric/.config/i3/launch_top.sh
+exec unclutter --timeout 1
 
 # i3-gaps
 gaps outer 75

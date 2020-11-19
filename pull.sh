@@ -1,4 +1,4 @@
-# /usr/bin/sh
+#!/bin/sh
 
 # Target config
 CONFIG_DIR=$HOME"/projects/dotfiles/"
