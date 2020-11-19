@@ -23,12 +23,3 @@ sudo ./install.sh --schedule
 **Current environment:**
 
 ![workspace](https://i.imgur.com/bb9ASRb.jpg)
-
-- Arch Linux
-- i3 Window Manager
-- Polybar Status Bar
-
-Utilities:
-- Fish shell
-- qutebrowser
-- vim
