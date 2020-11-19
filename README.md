@@ -12,6 +12,11 @@ github and to install it in the proper locations.
 To run the scripts, all you need to do is execute `./pull.sh` to pull all the config files from their respective folders
 , then run `./push.sh` to push it to github and `./install.sh` to install all the files in their respective folders.
 
+The installation will also include the tasks on crontab to execute pull and push daily.
+
+You can configure the scheduling by editing the `crontab` file in the config directory and you also need set the user in
+the `install.sh` script and run it with sudo.
+
 **Current environment:**
 
 ![workspace](https://i.imgur.com/bb9ASRb.jpg)
