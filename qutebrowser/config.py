@@ -16,6 +16,7 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 config.set('url.default_page', 'http://google.com')
 config.set('url.start_pages', 'http://google.com')
 config.set('url.searchengines', {'DEFAULT': 'http://www.google.com/search?q={}'})
+config.set('tabs.show', 'multiple')
 
 # Keybindings
 config.bind('J', 'tab-prev')
