@@ -126,7 +126,7 @@ set $ws2 2
 set $ws3 3
 
 # keybinds 
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec alacritty 
 bindsym $mod+Tab workspace next
 bindsym $mod+f fullscreen 
 bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
