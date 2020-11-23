@@ -66,6 +66,7 @@ cp -r $PROJECT_DIR/"fish" $CONFIG_DIR
 cp -r $PROJECT_DIR/"vim/.vimrc" $HOME
 cp -r $PROJECT_DIR/"color-scripts" $CONFIG_DIR
 cp -r $PROJECT_DIR/"alacritty" $CONFIG_DIR
+cp -r $PROJECT_DIR/"picom" $CONFIG_DIR
 
 echo "Customizing alacritty..."
 curl https://raw.githubusercontent.com/dracula/alacritty/master/dracula.yml >> $CONFIG_DIR/alacritty/alacritty.yml
