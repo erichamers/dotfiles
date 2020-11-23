@@ -47,7 +47,7 @@ date = %A, %d %B at %H:%M:%S%
 
 [module/i3]
 type = internal/i3
-index-sort = true 
+index-sort = false 
 strip-wsnumbers = true
 format = <label-state> <label-mode>
 
