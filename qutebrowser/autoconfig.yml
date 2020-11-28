@@ -8,6 +8,7 @@ config_version: 2
 settings:
   content.notifications:
     https://app.slack.com: true
+    https://www.reddit.com: true
     https://www.youtube.com: true
   content.register_protocol_handler:
     https://mail.google.com?extsrc=mailto&url=%25s: true

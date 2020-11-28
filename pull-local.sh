@@ -14,6 +14,7 @@ FISH_DIR=$CONFIG_DIR/"fish"
 VIM_FILE=$HOME/".vimrc"
 XINIT_FILE=$HOME/".xinitrc"
 BASH_FILE=$HOME/".bashrc"
+BASH_PROFILE=$HOME/".bash_profile"
 COLORS_DIR=$CONFIG_DIR"/color-scripts"
 ALACRITTY_DIR=$CONFIG_DIR"/alacritty"
 
@@ -28,5 +29,6 @@ cp -rp $ALACRITTY_DIR $PROJECT_DIR
 cp $VIM_FILE $PROJECT_DIR/"vim/.vimrc"
 cp $XINIT_FILE $PROJECT_DIR/"xinit/.xinitrc"
 cp $BASH_FILE $PROJECT_DIR/"bash/.bashrc"
+cp $BASH_PROFILE $PROJECT_DIR/"bash/.bash_profile"
 
 mkdir -p $PROJECT_DIR/"vim" && cp -r $VIM_FILE $PROJECT_DIR/"vim/"

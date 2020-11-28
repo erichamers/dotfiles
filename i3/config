@@ -44,8 +44,8 @@ floating_modifier $mod
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-bindsym $mod+r exec rofi drun window ssh -combi-modi drun -theme solarized -font "hack 10" -show drun
-bindsym $mod+e exec rofi run -combi-modi run -theme solarized -font "hack 10" -show run
+bindsym $mod+r exec rofi -show drun -monitor -4
+bindsym $mod+e exec rofi -show run -monitor -4
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -100,6 +100,10 @@ bindsym $mod+Shift+q exit
 #############   vvv Custom Config vvv   ############### 
 #############                           ###############
 #######################################################
+
+# window specific configs
+for_window [class="qutebrowser"] fullscreen enable
+for_window [class="VirtualBox Machine"] floating enable
 
 # change container layout (tabbed, toggle split)
 # bindsym $mod+s layout stacking
