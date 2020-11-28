@@ -18,9 +18,10 @@ CONFIG_DIR=$HOME/".config"
 echo "Creating folder structure..."
 mkdir $HOME/projects $HOME/apps $CONFIG_DIR/picom $HOME/fonts $HOME/.ssh
 
+yay -S openssh
 ssh-keygen -t ed25519 -C "erichamers@gmail.com" -N '' -f $HOME/.ssh/id_ed25519
 eval "$(ssh-agent -s)"
-ssh-add $CONFIG_DIR/.ssh/id_ed25519
+ssh-add $HOME/.ssh/id_ed25519
 
 echo "Installing Vundle plugin manager for vim..."
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
