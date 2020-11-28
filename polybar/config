@@ -50,7 +50,7 @@ date = %A, %d %B at %H:%M:%S%
 
 [module/i3]
 type = internal/i3
-index-sort = false 
+index-sort = true 
 strip-wsnumbers = true
 format = <label-state> <label-mode>
 
@@ -87,6 +87,7 @@ format-connected = <label-connected>
 [module/temperature]
 type = internal/temperature 
 label = %{O20}%{F#ff5555}%{T2}%{F-}%{T-} %temperature-c%
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input 
 
 [module/pulseaudio]
 type = internal/pulseaudio
