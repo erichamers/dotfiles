@@ -6,9 +6,22 @@
 
 config_version: 2
 settings:
+  content.geolocation:
+    https://gshow.globo.com: true
+    https://www.google.com: true
+  content.media.audio_capture:
+    https://meet.google.com: true
+  content.media.audio_video_capture:
+    https://meet.google.com: true
+  content.media.video_capture:
+    https://meet.google.com: true
   content.notifications:
     https://app.slack.com: true
+    https://calendar.google.com: true
+    https://meet.google.com: true
+    https://web.whatsapp.com: true
     https://www.reddit.com: true
     https://www.youtube.com: true
   content.register_protocol_handler:
+    https://calendar.google.com?cid=%25s: true
     https://mail.google.com?extsrc=mailto&url=%25s: true

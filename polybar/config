@@ -29,7 +29,7 @@ font-1 = agave nerd font mono:size=15;4
 font-2 = agave nerd font mono:size=16;5
 font-3 = agave nerd font mono:size=16;6
 padding = 3
-override-redirect = true
+override-redirect = true 
 wm-restack = i3
 module-margin = 1
 

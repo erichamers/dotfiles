@@ -42,18 +42,10 @@ com! FormatJSON %!python -m json.tool
 nmap <C-j> :FormatJSON<CR>
 
 " File Explorer
-map <C-e> :Explore<CR>
+map <S-e> :Explore<CR>
 
 " Window commands
 nmap <C-q> :q<CR>
-
-" Splits
-map <C-v> :vs<CR>
-map <C-h> :sp<CR>
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
 
 " Buffers Mapping
 map <silent> <C-S-b> :bd<CR>

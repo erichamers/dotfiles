@@ -15,8 +15,8 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 
 # custom configuration
 config.set('downloads.position', 'bottom')
-config.set('url.default_page', 'http://google.com')
-config.set('url.start_pages', 'http://google.com')
+config.set('url.default_page', '/home/eric/.config/qutebrowser/home/homepage.html')
+config.set('url.start_pages', '/home/eric/.config/qutebrowser/home/homepage.html')
 config.set('url.searchengines', {'DEFAULT': 'http://www.google.com/search?q={}'})
 config.set('tabs.show', 'multiple')
 
