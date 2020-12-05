@@ -17,3 +17,4 @@ cp -r $CONFIG_DIR/"polybar" $PROJECT_CONFIG
 cp -r $CONFIG_DIR/"qtile" $PROJECT_CONFIG
 cp -r $CONFIG_DIR/"qutebrowser" $PROJECT_CONFIG
 cp -r $CONFIG_DIR/"rofi" $PROJECT_CONFIG
+cp -r $CONFIG_DIR/"wallpapers" $PROJECT_CONFIG
