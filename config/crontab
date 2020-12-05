@@ -1,2 +1,0 @@
-0 17 * * * /bin/sh /home/eric/projects/dotfiles/pull.sh 
-1 17 * * * /bin/sh /home/eric/projects/dotfiles/push.sh
