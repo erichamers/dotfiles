@@ -41,6 +41,8 @@ def window_to_group(window):
         window.togroup('3')
     elif window.name == 'Skype':
         window.togroup('3')
+    else:
+        window.togroup('4')
 
 def spawn_icon(symbol_hex):
     w = widget.TextBox(
@@ -117,7 +119,7 @@ keys = [
     Key([mod], 'b', lazy.spawn('qutebrowser')),
 
     # Launch ranger
-    Key([mod], 'e', lazy.spawn(terminal + ' -e /bin/ranger')),
+    Key([mod], 'e', lazy.spawn('pcmanfm')),
 
     # Switch between windows in current stack pane
     Key([mod], 'k', lazy.layout.down(),
@@ -184,6 +186,11 @@ groups = [
         exclusive=True,
         **default_groups_config
     ),
+    Group(
+        name='4', 
+        label='\ufc6e',
+        **default_groups_config
+        ) 
 ]
 
 for i in groups:
@@ -207,6 +214,7 @@ monadtall_config = {
     'border_focus': '#f8f8f2', 
     'border_normal': '#6272a4',
     'single_margin': 0,
+    'single_border_width': 0,
 }
 
 layouts = [
