@@ -21,6 +21,9 @@ config.set('url.default_page', '/home/eric/.config/qutebrowser/home/homepage.htm
 config.set('url.start_pages', '/home/eric/.config/qutebrowser/home/homepage.html')
 config.set('url.searchengines', {'DEFAULT': 'http://www.google.com/search?q={}'})
 config.set('tabs.show', 'multiple')
+config.set('statusbar.show', 'never')
+config.set('fonts.default_family', 'mononoki nerd font mono')
+config.set('fonts.default_size', '12px')
 
 # Keybindings
 config.bind('res', 'restart')

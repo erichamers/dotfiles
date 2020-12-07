@@ -38,7 +38,9 @@ colors = {
     'urgent': '#ff5555',
     'inactive': '#44475a',
     'lighter_gray': '#a9a9a9',
-    'comment': '#6272a4'
+    'comment': '#6272a4',
+    'foreground': '#ffffff',
+    'orange': '#ffb86c',
 }
 
 font_size = 20
@@ -57,11 +59,12 @@ def window_to_group(window):
     else:
         window.togroup('4')
 
-def spawn_icon(symbol_hex):
+def spawn_icon(symbol_hex, foreground='#f8f8f2'):
     w = widget.TextBox(
         text=symbol_hex,
         fontsize=font_size,
         padding=0,
+        foreground=foreground
     )
 
     return w
@@ -87,18 +90,19 @@ def set_screen():
                     foreground=colors['lighter_gray'],
                 ),
                 widget.Spacer(),
-                spawn_icon('\ue266'),
+                spawn_icon('\ue266', '#8be9fd'),
                 widget.Memory(
                     format='{MemUsed} MB'
                 ),
-                spawn_icon('\uf85a'),
+                spawn_icon('\uf85a', '#f1fa8c'),
                 widget.CPU(
                     format='{load_percent}%' 
                 ),
-                spawn_icon('\ufa7d'),
+                spawn_icon('\ufa7d', colors['orange']),
                 widget.Volume(
                     cardid=1,
-                    step=1,
+                    step=2,
+                #     emoji=True,
                 ),
                 widget.Clock(format='%A,%e %b. %H:%M:%S'),
             ],
