@@ -31,6 +31,19 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
 
+colors = {
+    'background': '#282a36',
+    'purple_highlight': '#bd93f9',
+    'dark_gray': '#191a21',
+    'urgent': '#ff5555',
+    'inactive': '#44475a',
+    'lighter_gray': '#a9a9a9',
+    'comment': '#6272a4'
+}
+
+font_size = 20
+widget_font_size = 12
+
 @hook.subscribe.client_new
 def window_to_group(window):
     if window.name == 'qutebrowser':
@@ -47,7 +60,7 @@ def window_to_group(window):
 def spawn_icon(symbol_hex):
     w = widget.TextBox(
         text=symbol_hex,
-        fontsize=20,
+        fontsize=font_size,
         padding=0,
     )
 
@@ -62,16 +75,16 @@ def set_screen():
                     highlight_method='block',
                     rounded=False,
                     disable_drag=True,
-                    this_screen_border='#282a36',
-                    this_current_screen_border='#bd93f9',
-                    other_screen_border='#191a21',
-                    other_current_screen_border='#191a21',
-                    urgent_border='#ff5555',
-                    inactive='#44475a',
-                    fontsize=20,
+                    this_screen_border=colors['background'],
+                    this_current_screen_border=colors['purple_highlight'],
+                    other_screen_border=colors['dark_gray'],
+                    other_current_screen_border=colors['dark_gray'],
+                    urgent_border=colors['urgent'],
+                    inactive=colors['inactive'],
+                    fontsize=font_size,
                 ),
                 widget.WindowName(
-                    foreground='#a9a9a9',
+                    foreground=colors['lighter_gray'],
                 ),
                 widget.Spacer(),
                 spawn_icon('\ue266'),
@@ -91,7 +104,7 @@ def set_screen():
             ],
             25,
             opacity=.95,
-            background='#282a36',
+            background=colors['background'],
         )
     )
     return screen
@@ -211,8 +224,8 @@ for i in groups:
 monadtall_config = {
     'margin': 10,
     'border_width': 1,
-    'border_focus': '#f8f8f2', 
-    'border_normal': '#6272a4',
+    'border_focus': colors['foreground'], 
+    'border_normal': colors['comment'],
     'single_margin': 0,
     'single_border_width': 0,
 }
@@ -235,8 +248,8 @@ layouts = [
 
 widget_defaults = dict(
     font='mononoki nerd font mono',
-    fontcolor='#f8f8f2',
-    fontsize=12,
+    fontcolor=colors['foreground'],
+    fontsize=widget_font_size,
     padding=10,
 )
 

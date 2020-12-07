@@ -1,3 +1,5 @@
+import dracula.draw 
+
 # default config
 config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
 config.set('content.cookies.accept', 'all', 'devtools://*')
@@ -28,3 +30,10 @@ config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 
 config.load_autoconfig()
+
+dracula.draw.blood(c, {
+    'spacing': {
+        'vertical': 3,
+        'horizontal': 4 
+    }
+})
