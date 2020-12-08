@@ -33,38 +33,49 @@ from libqtile.lazy import lazy
 
 colors = {
     'background': '#282a36',
-    'purple_highlight': '#bd93f9',
-    'dark_gray': '#191a21',
-    'urgent': '#ff5555',
-    'inactive': '#44475a',
-    'lighter_gray': '#a9a9a9',
-    'comment': '#6272a4',
+    'current-line': '#44475a',
     'foreground': '#ffffff',
+    'comment': '#6272a4',
+    'cyan': '#8be9fd',
+    'green': '#50fa7b',
     'orange': '#ffb86c',
+    'pink': '#ff79c6',
+    'purple': '#bd93f9',
+    'dark_gray': '#191a21',
+    'red': '#ff5555',
+    'yellow': '#f1fa8c',
+    'lighter_gray': '#a9a9a9',
 }
 
 font_size = 20
 widget_font_size = 12
 
+@hook.subscribe.startup
+def start_pulseaudio():
+    lazy.spawn('pulseaudio --start')
+
 @hook.subscribe.client_new
 def window_to_group(window):
-    if window.name == 'qutebrowser':
-        window.togroup('1')
-    elif window.name == 'Alacritty':
-        window.togroup('2')
-    elif window.name == 'Slack':
-        window.togroup('3')
-    elif window.name == 'Skype':
-        window.togroup('3')
+    if window.window.get_wm_class() == ('qutebrowser', 'qutebrowser'):
+        window.togroup('u')
+    elif window.window.get_wm_class() == ('Alacritty', 'Alacritty'):
+        window.togroup('i')
+    elif window.window.get_wm_class() == ('code', 'Code'):
+        window.togroup('i')
+    elif window.window.get_wm_class() == ('slack', 'Slack'):
+        window.togroup('o')
+    elif window.window.get_wm_class() == ('skype', 'Skype'):
+        window.togroup('o')
     else:
-        window.togroup('4')
+        window.togroup('p')
 
 def spawn_icon(symbol_hex, foreground='#f8f8f2'):
     w = widget.TextBox(
         text=symbol_hex,
         fontsize=font_size,
-        padding=0,
-        foreground=foreground
+        padding=5,
+        foreground=foreground,
+        background=colors['current-line'],
     )
 
     return w
@@ -79,36 +90,51 @@ def set_screen():
                     rounded=False,
                     disable_drag=True,
                     this_screen_border=colors['background'],
-                    this_current_screen_border=colors['purple_highlight'],
+                    this_current_screen_border=colors['purple'],
                     other_screen_border=colors['dark_gray'],
                     other_current_screen_border=colors['dark_gray'],
-                    urgent_border=colors['urgent'],
-                    inactive=colors['inactive'],
+                    urgent_border=colors['red'],
+                    inactive=colors['current-line'],
                     fontsize=font_size,
+                    padding_y=5,
+                    padding_x=8,
                 ),
                 widget.WindowName(
                     foreground=colors['lighter_gray'],
                 ),
                 widget.Spacer(),
+                widget.TextBox('\uf438', foreground=colors['current-line'], padding=-12, fontsize=62),
                 spawn_icon('\ue266', '#8be9fd'),
                 widget.Memory(
-                    format='{MemUsed} MB'
+                    format='{MemUsed} MB',
+                    background=colors['current-line']
                 ),
                 spawn_icon('\uf85a', '#f1fa8c'),
                 widget.CPU(
-                    format='{load_percent}%' 
+                    format='{load_percent}%', 
+                    background=colors['current-line']
                 ),
-                spawn_icon('\ufa7d', colors['orange']),
+                spawn_icon('\ufa7d', colors['green']),
                 widget.Volume(
                     cardid=1,
                     step=2,
-                #     emoji=True,
+                    background=colors['current-line']
                 ),
-                widget.Clock(format='%A,%e %b. %H:%M:%S'),
+                widget.TextBox(
+                    '\uf438', 
+                    foreground=colors['background'], 
+                    background=colors['current-line'],  
+                    padding=-12, 
+                    fontsize=62
+                ),
+                widget.Clock(
+                    background=colors['background'], 
+                    format='%A,%e %b. %H:%M:%S',
+                    foreground=colors['foreground'])
             ],
             25,
-            opacity=.95,
             background=colors['background'],
+            opacity=.95,
         )
     )
     return screen
@@ -178,6 +204,18 @@ keys = [
     Key([mod, 'control'], 'r', lazy.restart(), desc='Restart qtile'),
     Key([mod, 'control'], 'q', lazy.shutdown(), desc='Shutdown qtile'),
     Key([mod], 'r', lazy.spawn('rofi -show run')),
+    Key(
+        [], "XF86AudioRaiseVolume",
+        lazy.spawn("amixer set 'Master' 1%+")
+    ),
+    Key(
+        [], "XF86AudioLowerVolume",
+        lazy.spawn("amixer set 'Master' 1%-")
+    ),
+    Key(
+        [], "XF86AudioMute",
+        lazy.spawn("amixer set 'Master' toggle")
+    ),
 ]
 
 default_groups_config = {
@@ -186,25 +224,25 @@ default_groups_config = {
 
 groups = [
     Group(
-        name='1', 
+        name='u', 
         label='\ue743',
         exclusive=True,
         **default_groups_config
     ),
     Group(
-        name='2', 
+        name='i', 
         label='\ue795',
         exclusive=True,
         **default_groups_config
     ),
     Group(
-        name='3', 
+        name='o', 
         label='\uf9b0',
         exclusive=True,
         **default_groups_config
     ),
     Group(
-        name='4', 
+        name='p', 
         label='\ufc6e',
         **default_groups_config
         ) 
@@ -226,7 +264,7 @@ for i in groups:
     ])
 
 monadtall_config = {
-    'margin': 10,
+    'margin': 15,
     'border_width': 1,
     'border_focus': colors['foreground'], 
     'border_normal': colors['comment'],
