@@ -52,6 +52,9 @@ colors = {
 
 font_size = 20
 widget_font_size = 12
+mod = "mod4"
+terminal = guess_terminal()
+
 
 @hook.subscribe.startup_once
 def start_picom():
@@ -137,17 +140,6 @@ def launch_widgets():
     ]
             
     return widgets 
-
-def launch_bar():
-    b = bar.Bar(
-    widgets=launch_widgets(),
-    size=25,
-    margin=[0, 0, 40, 0],
-    )
-    return b
-
-mod = "mod4"
-terminal = guess_terminal()
 
 keys = [
     # Move around windows
@@ -377,12 +369,4 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "qtile"
