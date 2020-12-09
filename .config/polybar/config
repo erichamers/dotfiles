@@ -16,101 +16,163 @@
 ;
 ;==========================================================
 
-[bar/top]
-monitor = ${env:MONITOR:} 
-width = 80%
-offset-x = 10%
-offset-y = 10 
-radius = 10 
-height = 3.1%
-background = #282a36
-font-0 = agave nerd font mono:size=9;2
-font-1 = agave nerd font mono:size=15;4
-font-2 = agave nerd font mono:size=16;5
-font-3 = agave nerd font mono:size=16;6
-padding = 3
-override-redirect = true 
-wm-restack = i3
-module-margin = 1
+[colors]
+; non-alpha colors
+foreground                  = #f8f8f2
+inactive-groups             = #646464
+background                  = #282a36
+current-line                = #44475a
+foreground_alpha            = #f8f8f2
+comment                     = #6272a4
+cyan                        = #8be9fd
+green                       = #50fa7b
+orange                      = #ffb86c
+pink                        = #ff79c6
+purple                      = #bd93f9
+red                         = #ff5555
+yellow                      = #f1fa8c
+light-gray                  = #a9a9a9
+dark-gray                   = #191a21
 
-modules-center = title separator date 
-modules-right = pulseaudio temperature
-modules-left = i3 separator computer-symbol cpu memory wired-network
+; alpha colors
+foreground-alpha            = #e6f8f8f2
+inactive-groups-alpha       = #e6646464
+background-alpha            = #e6282a36
+current-line-alpha          = #e644475a
+foreground_alpha-alpha      = #e6f8f8f2
+comment-alpha               = #e66272a4
+cyan-alpha                  = #e68be9fd
+green-alpha                 = #e650fa7b
+orange-alpha                = #e6ffb86c
+pink-alpha                  = #e6ff79c6
+purple-alpha                = #e6bd93f9
+red-alpha                   = #e6ff5555
+yellow-alpha                = #e6f1fa8c
+light-gray-alpha            = #e6a9a9a9
+dark-gray-alpha             = #e6191a21
+
+[bar/top]
+monitor                     = ${env:MONITOR:} 
+width                       = 100%
+height                      = 25
+padding-right               = 1
+wm-name                     = top-polybar
+enable-ipc                  = true
+separator                   = "%{F#808080} | %{F-} "
+
+background                  = ${colors.background-alpha} 
+foreground                  = ${colors.foreground} 
+
+font-0                      = mononoki nerd font mono:size=9;2
+font-1                      = mononoki nerd font mono:size=15;3
+font-2                      = mononoki nerd font mono:size=16;3
+font-3                      = mononoki nerd font mono:size=16;3
+font-4                      = mononoki nerd font mono:size=25;6
+font-5                      = mononoki nerd font mono:size=30;6
+dpi-x                       = 0
+dpi-y                       = 0
+
+;override-redirect           = true 
+;wm-restack                  = i3
+
+modules-left                = qtile title 
+modules-center              = date
+modules-right               = subscriber wired-network cpu memory temperature
+
+[module/subscriber]
+type = custom/ipc
+
+[module/qtile]
+type                        = internal/xworkspaces
+
+icon-0                      = u;%{T4}%{T-}
+icon-1                      = i;%{T4}%{T-}
+icon-2                      = o;%{T4}聆%{T-}
+icon-3                      = p;%{T4}%{T-}
+
+label-active                = %icon%
+label-active-padding        = 2
+label-active-background     = ${colors.comment}
+label-inactive              = %icon%
+label-inactive-padding      = 2
+label-empty                 = %icon%
+label-empty-padding         = 2
+label-empty-foreground      = #646464
+label-urgent                = %icon%
+label-urgent-padding        = 2
+label-urgent-background     = ${colors.red}
+label-occupied              = %icon%
+label-occupied-padding      = 2
 
 [module/title]
-type = internal/xwindow
-label-maxlen = 50
+type                        = internal/xwindow
+label-maxlen                = 50
+format                      = <label>
+format-foreground           = ${colors.light-gray}
 
 [module/date]
-type = internal/date
-label = %{F#ff5555}%{T2}%{T-}%{F-}  %date% %time%
+type                        = internal/date
 
-interval = 1.0
-date = %A, %d %B at %H:%M:%S%
-
-[module/i3]
-type = internal/i3
-index-sort = true 
-strip-wsnumbers = true
-format = <label-state> <label-mode>
-
-label-focused = %{O2}%{T2}%{F#ff5555}%{T-}
-label-focused-padding = 2 
-label-unfocused-padding = 2 
-label-visible = %{O2}%{T2}%{F#f8f8f2}%{T-}
-label-unfocused = %{O2}%{T2}%{F#f8f8f2}%{T-}
-label-visible-padding = 2 
-label-focused-foreground = #ffffff
-label-visible-foreground = #44475a
-
-[module/cpu]
-type = internal/cpu
-interval = 0.5
-
-label = %{T3}%{O8}%{F#ffb86c}%{F-}%{T-}%{O5} %percentage%%
-format = <label>
-
-[module/memory]
-type = internal/memory
-interval = 1
-
-label = %{T2}%{F#8be9fd}%{F-}%{O-5} %{T-} %mb_used%
-format = <label>
+interval                    = 1.0
+date                        = %A, %b%e %H:%M:%S%
 
 [module/wired-network]
-type = internal/network
-interface = enp4s0
-interval = 1
-label-connected = %{T4}%{F#f1fa8c}ﯲ%{F-}%{T-} %downspeed%
-format-connected = <label-connected>
+type                        = internal/network
+interface                   = enp4s0
+interval                    = 1
+label-connected             = "%{T4}ﯲ%{T-} %downspeed% "
+format-connected            = <label-connected>
+
+[module/cpu]
+type                        = internal/cpu
+interval                    = 0.5
+label                       = " %{T4}%{T-} %percentage%% "
+format                      = <label>
+
+[module/memory]
+type                        = internal/memory
+interval                    = 1
+label                       = " %{T4}%{T-} %mb_used% "
+format                      = <label>
 
 [module/temperature]
-type = internal/temperature 
-label = %{O20}%{F#ff5555}%{T2}%{F-}%{T-} %temperature-c%
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input 
+type                        = internal/temperature 
+label                       = " %{T4}%{T-} %temperature-c% "
+hwmon-path                  = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input 
 
 [module/pulseaudio]
-type = internal/pulseaudio
-sink = alsa_output.pci-0000_08_00.4.analog-stereo
-use-ui-max = true
-interval = 5
+type                        = internal/pulseaudio
+sink                        = alsa_output.pci-0000_08_00.4.analog-stereo
+use-ui-max                  = true
+interval                    = 5
 
-format-volume = <label-volume> <bar-volume>
-label-muted = muted
-label-volume = %percentage%% 
+format-volume               = <label-volume> <bar-volume>
+label-muted                 = muted
+label-volume                = %percentage%% 
 
-bar-volume-width = 15 
-bar-volume-gradient = true
-bar-volume-indicator = █
-bar-volume-indicator-font = 1
-bar-volume-fill = ―
-bar-volume-fill-font = 1
-bar-volume-fill-foreground = #bd93f9
-bar-volume-empty = ― 
+bar-volume-width            = 15 
+bar-volume-gradient         = true
+bar-volume-indicator        = █
+bar-volume-indicator-font   = 1
+bar-volume-fill             = ―
+bar-volume-fill-font        = 1
+bar-volume-fill-foreground  = #bd93f9
+bar-volume-empty            = ― 
 bar-volume-empty-foreground = #44475a
-bar-volume-empty-font = 1
+bar-volume-empty-font       = 1
 
-[module/separator]
-type = custom/text
-content = | 
-content-foreground = #f8f8f2
+[module/i3]
+type                        = internal/i3
+index-sort                  = true 
+strip-wsnumbers             = true
+
+label-focused               = %name%
+label-focused-background    = #DC6272a4
+label-focused-padding       = 1
+label-unfocused-background  = #DC191a21
+label-unfocused-padding     = 1
+label-unfocused             = %name%
+label-visible-background    = #DC191a21
+label-visible-padding       = 1
+label-visible               = %name%
+

@@ -1,2 +1,2 @@
 #!/bin/zsh
-wmctrl -r "Slack" -b add,demands_attention
+wmctrl -r "slack" -b add,demands_attention

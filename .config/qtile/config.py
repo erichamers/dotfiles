@@ -29,7 +29,10 @@ from typing import List  # noqa: F401
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 
+import os
+import subprocess
 
 colors = {
     'background': '#282a36',
@@ -50,21 +53,19 @@ colors = {
 font_size = 20
 widget_font_size = 12
 
-@hook.subscribe.startup
-def start_pulseaudio():
-    lazy.spawn('pulseaudio --start')
+@hook.subscribe.startup_once
+def start_picom():
+    home = os.path.expanduser('~')
+    subprocess.Popen(['/usr/bin/picom'])
+    subprocess.Popen(['killall pulseaudio', '&' ,'/usr/bin/pulseaudio', '--start'])
 
 @hook.subscribe.client_new
 def window_to_group(window):
     if window.window.get_wm_class() == ('qutebrowser', 'qutebrowser'):
         window.togroup('u')
-    elif window.window.get_wm_class() == ('Alacritty', 'Alacritty'):
+    elif window.window.get_wm_class() in [('Alacritty', 'Alacritty'), ('code', 'Code'), ('konsole', 'konsole')]:
         window.togroup('i')
-    elif window.window.get_wm_class() == ('code', 'Code'):
-        window.togroup('i')
-    elif window.window.get_wm_class() == ('slack', 'Slack'):
-        window.togroup('o')
-    elif window.window.get_wm_class() == ('skype', 'Skype'):
+    elif window.window.get_wm_class() in [('skype', 'Skype'), ('slack', 'Slack')]:
         window.togroup('o')
     else:
         window.togroup('p')
@@ -80,67 +81,73 @@ def spawn_icon(symbol_hex, foreground='#f8f8f2'):
 
     return w
 
-def set_screen():
-    screen =  Screen(
-        top=bar.Bar(
-            [
-                widget.GroupBox(
-                    urgent_alert_method='block',
-                    highlight_method='block',
-                    rounded=False,
-                    disable_drag=True,
-                    this_screen_border=colors['background'],
-                    this_current_screen_border=colors['purple'],
-                    other_screen_border=colors['dark_gray'],
-                    other_current_screen_border=colors['dark_gray'],
-                    urgent_border=colors['red'],
-                    inactive=colors['current-line'],
-                    fontsize=font_size,
-                    padding_y=5,
-                    padding_x=8,
-                ),
-                widget.WindowName(
-                    foreground=colors['lighter_gray'],
-                ),
-                widget.Spacer(),
-                widget.TextBox('\uf438', foreground=colors['current-line'], padding=-12, fontsize=62),
-                spawn_icon('\ue266', '#8be9fd'),
-                widget.Memory(
-                    format='{MemUsed} MB',
-                    background=colors['current-line']
-                ),
-                spawn_icon('\uf85a', '#f1fa8c'),
-                widget.CPU(
-                    format='{load_percent}%', 
-                    background=colors['current-line']
-                ),
-                spawn_icon('\ufa7d', colors['green']),
-                widget.Volume(
-                    cardid=1,
-                    step=2,
-                    background=colors['current-line']
-                ),
-                widget.TextBox(
-                    '\uf438', 
-                    foreground=colors['background'], 
-                    background=colors['current-line'],  
-                    padding=-12, 
-                    fontsize=62
-                ),
-                widget.Clock(
-                    background=colors['background'], 
-                    format='%A,%e %b. %H:%M:%S',
-                    foreground=colors['foreground'])
-            ],
-            25,
-            background=colors['background'],
-            opacity=.95,
-        )
+def launch_widgets():
+
+    widgets = [
+        widget.GroupBox(
+            urgent_alert_method='block',
+            highlight_method='block',
+            rounded=False,
+            disable_drag=True,
+            this_screen_border=colors['background'],
+            this_current_screen_border=colors['purple'],
+            other_screen_border=colors['dark_gray'],
+            other_current_screen_border=colors['dark_gray'],
+            urgent_border=colors['red'],
+            inactive=colors['current-line'],
+            fontsize=font_size,
+            padding_y=5,
+            padding_x=8,
+        ),
+        widget.WindowName(
+            foreground=colors['lighter_gray'],
+        ),
+        widget.Spacer(),
+        widget.CurrentLayout(
+            foreground=colors['lighter_gray'],
+        ),
+        widget.TextBox('\uf438', foreground=colors['current-line'], padding=-12, fontsize=62),
+        spawn_icon('\ue266'),
+        widget.Memory(
+            format='{MemUsed} MB',
+            background=colors['current-line']
+        ),
+        spawn_icon('\uf85a'),
+        widget.CPU(
+            format='{load_percent}%', 
+            background=colors['current-line']
+        ),
+        spawn_icon('\ufa7d'),
+        widget.Volume(
+            cardid=1,
+            step=2,
+            background=colors['current-line']
+        ),
+        widget.TextBox(
+            '\uf438', 
+            foreground=colors['background'], 
+            background=colors['current-line'],  
+            padding=-12, 
+            fontsize=62
+        ),
+        widget.Clock(
+            background=colors['background'], 
+            format='%A,%e %b. %H:%M:%S',
+            foreground=colors['foreground'])
+    ]
+            
+    return widgets 
+
+def launch_bar():
+    b = bar.Bar(
+    widgets=launch_widgets(),
+    size=25,
+    margin=[0, 0, 40, 0],
     )
-    return screen
+    return b
 
 mod = "mod4"
-terminal = 'alacritty'
+terminal = guess_terminal()
 
 keys = [
     # Move around windows
@@ -161,8 +168,10 @@ keys = [
     # Launch qutebrowser
     Key([mod], 'b', lazy.spawn('qutebrowser')),
 
+    Key([mod, 'control'], 'e', lazy.spawn('alacritty -e "weechat"')),
+
     # Launch ranger
-    Key([mod], 'e', lazy.spawn('pcmanfm')),
+    Key([mod], 'e', lazy.spawn('alacritty -e "ranger"')),
 
     # Switch between windows in current stack pane
     Key([mod], 'k', lazy.layout.down(),
@@ -238,7 +247,6 @@ groups = [
     Group(
         name='o', 
         label='\uf9b0',
-        exclusive=True,
         **default_groups_config
     ),
     Group(
@@ -263,11 +271,14 @@ for i in groups:
         #     desc="move focused window to group {}".format(i.name)),
     ])
 
-monadtall_config = {
-    'margin': 15,
+default_layout_config = {
     'border_width': 1,
     'border_focus': colors['foreground'], 
     'border_normal': colors['comment'],
+}
+
+monadtall_config = {
+    'margin': 10,
     'single_margin': 0,
     'single_border_width': 0,
 }
@@ -279,7 +290,11 @@ layouts = [
     # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),
-    layout.MonadTall(**monadtall_config),
+    layout.MonadTall(
+        **default_layout_config,
+        **monadtall_config,
+        name='MonadTall'
+    ),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -297,10 +312,30 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 
+default_bar_config = {
+    'size': 25,
+    'background': colors['background'],
+    'opacity': .95
+}
+
 screens = [
-    set_screen(),
-    set_screen()
-] 
+    Screen(
+        top = bar.Bar(
+                widgets=launch_widgets(),
+                **default_bar_config
+            ),
+    ),
+    Screen(
+        top=bar.Bar(
+            widgets=launch_widgets(),
+            margin=[0, 0, 40, 0],
+            **default_bar_config,
+            ), 
+        left=bar.Gap(65),
+        right=bar.Gap(65),
+        bottom=bar.Gap(65),
+    ), 
+]
 
 # Drag floating layouts.
 mouse = [
@@ -350,4 +385,4 @@ focus_on_window_activation = "smart"
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "qtile"

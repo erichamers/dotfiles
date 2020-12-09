@@ -107,3 +107,7 @@ fi
 alias ssh='env TERM=xterm-256color ssh'
 alias qtile-log='tail -f ~/.local/share/qtile/qtile.log'
 alias copy='xclip -sel clip'
+
+export EDITOR=vim
+export PAGER=less
+
