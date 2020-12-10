@@ -160,10 +160,8 @@ keys = [
     # Launch qutebrowser
     Key([mod], 'b', lazy.spawn('qutebrowser')),
 
-    Key([mod, 'control'], 'e', lazy.spawn('alacritty -e "weechat"')),
-
     # Launch ranger
-    Key([mod], 'e', lazy.spawn('alacritty -e "ranger"')),
+    Key([mod], 'e', lazy.spawn('alacritty -e ranger')),
 
     # Switch between windows in current stack pane
     Key([mod], 'k', lazy.layout.down(),
