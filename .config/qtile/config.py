@@ -52,8 +52,8 @@ colors = {
 
 font_size = 20
 widget_font_size = 12
-mod = "mod4"
-terminal = guess_terminal()
+mod = 'mod4'
+terminal = guess_terminal() 
 
 
 @hook.subscribe.startup_once
@@ -64,19 +64,26 @@ def start_picom():
 
 @hook.subscribe.client_new
 def window_to_group(window):
-    if window.window.get_wm_class() == ('qutebrowser', 'qutebrowser'):
+    if window.window.get_wm_class() in [
+            ('qutebrowser', 'qutebrowser'),
+            ('Xephyr', 'Xephyr')
+            ]:
         window.togroup('u')
-    elif window.window.get_wm_class() in [('Alacritty', 'Alacritty'), ('code', 'Code'), ('konsole', 'konsole')]:
+    elif window.window.get_wm_class() in [
+            ('Alacritty', 'Alacritty'), 
+            ('code', 'Code'), 
+            ('st-256color', 'st-256color')
+            ]:
         window.togroup('i')
     elif window.window.get_wm_class() in [('skype', 'Skype'), ('slack', 'Slack')]:
         window.togroup('o')
     else:
         window.togroup('p')
 
-def spawn_icon(symbol_hex, foreground='#f8f8f2'):
+def spawn_icon(symbol_hex, foreground='#f8f8f2', fontsize=font_size):
     w = widget.TextBox(
         text=symbol_hex,
-        fontsize=font_size,
+        fontsize=fontsize,
         padding=5,
         foreground=foreground,
         background=colors['current-line'],
@@ -106,10 +113,12 @@ def launch_widgets():
             foreground=colors['lighter_gray'],
         ),
         widget.Spacer(),
-        widget.CurrentLayout(
-            foreground=colors['lighter_gray'],
-        ),
         widget.TextBox('\uf438', foreground=colors['current-line'], padding=-12, fontsize=62),
+        spawn_icon('\uf2c9', fontsize=14),
+        widget.ThermalSensor(
+            tag_sensor='Tctl',
+            background=colors['current-line'],
+        ),
         spawn_icon('\ue266'),
         widget.Memory(
             format='{MemUsed} MB',
@@ -141,8 +150,11 @@ def launch_widgets():
             
     return widgets 
 
+xephyr_command = "/home/eric/projects/qtile/scripts/xephyr -c /home/eric/projects/qtile/libqtile/resources/default_config.py"
+
 keys = [
     # Move around windows
+    Key([mod], 'x', lazy.spawn('xterm -e {}'.format(xephyr_command))),
     Key([mod], 'h', lazy.layout.left()),
     Key([mod], 'k', lazy.layout.down()),
     Key([mod], 'j', lazy.layout.up()),
@@ -161,6 +173,7 @@ keys = [
     Key([mod], 'b', lazy.spawn('qutebrowser')),
 
     # Launch ranger
+    Key([mod], 'm', lazy.spawn('alacritty -e weechat')),
     Key([mod], 'e', lazy.spawn('alacritty -e ranger')),
 
     # Switch between windows in current stack pane
@@ -253,7 +266,7 @@ for i in groups:
             desc='Switch to group {}'.format(i.name)),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, 'shift'], i.name, lazy.window.togroup(i.name, switch_group=True), lazy.layout.to_screen(i.name),
+        Key([mod, 'shift'], i.name, lazy.window.togroup(i.name),
             desc='Switch to & move focused window to group {}'.format(i.name)),
         # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
@@ -363,6 +376,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(title='Xephyr'),
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"

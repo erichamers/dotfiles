@@ -52,4 +52,6 @@ nitrogen --restore &
 unclutter --timeout 1 &
 xrandr --output DP-4 --auto --output DP-0 --auto --left-of DP-4
 xset r rate 300 40 
+sysctl nvidia-drm.modeset=1
 exec qtile 
+

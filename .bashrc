@@ -7,7 +7,8 @@ neofetch
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export EDITR=vim
+export EDITOR=vim
+export SCREEN_SIZE=1024x576
 
 alias ls='ls --color=auto'
 alias ll='ls -l'
