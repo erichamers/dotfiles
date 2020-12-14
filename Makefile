@@ -4,15 +4,14 @@ pull:
 push:
 	@/bin/bash ./scripts/push.sh
 
-install:
-	echo "Installing config files"
+install-config:
 	@/bin/bash ./scripts/install.sh
 
 clean:
-	echo "Removing .config file from home folder"
 	@rm -rf ~/.config/
 
-packages:
-	echo "Installing all packages"
+install-packages:
 	@/bin/bash ./scripts/pkgInstall.sh
 
+install: install-packages
+	install-config
