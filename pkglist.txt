@@ -4,6 +4,7 @@ automake
 base
 binutils
 bison
+docker
 dosfstools
 efibootmgr
 fakeroot

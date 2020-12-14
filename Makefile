@@ -12,9 +12,6 @@ clean:
 	echo "Removing .config file from home folder"
 	@rm -rf ~/.config/
 
-update-pkg:
-	@yay -Qqe > pkglist.txt
-
 packages:
 	echo "Installing all packages"
 	@/bin/bash ./scripts/pkgInstall.sh
