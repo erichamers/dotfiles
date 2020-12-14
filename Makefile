@@ -1,8 +1,8 @@
 pull:
-	@/bin/bash pull.sh
+	@/bin/bash ./scripts/pull.sh
 push:
-	@/bin/bash push.sh
+	@/bin/bash ./scripts/push.sh
 install:
-	@/bin/bash install.sh
+	@/bin/bash ./scripts/install.sh
 clean:
 	@rm -rf ~/.config/
