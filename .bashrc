@@ -16,3 +16,6 @@ alias l='ls -alh'
 alias copy='xclip -sel clip'
 alias ssh='env TERM=xterm-256color ssh'
 PS1='[\u@\h \W]\$ '
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"

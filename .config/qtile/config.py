@@ -69,13 +69,19 @@ def window_to_group(window):
             ('Xephyr', 'Xephyr')
             ]:
         window.togroup('u')
+    elif (window.window.get_wm_class() == ('st-256color', 'st-256color')) and (window.window.get_name() == 'weechat'): 
+        window.togroup('o')
+    elif (window.window.get_wm_class() == ('st-256color', 'st-256color')) and (window.window.get_name() == 'ranger'): 
+        window.togroup('p')
     elif window.window.get_wm_class() in [
-            ('Alacritty', 'Alacritty'), 
+            ('st-256color', 'st-256color'),
             ('code', 'Code'), 
-            ('st-256color', 'st-256color')
             ]:
         window.togroup('i')
-    elif window.window.get_wm_class() in [('skype', 'Skype'), ('slack', 'Slack')]:
+    elif window.window.get_wm_class() in [
+            ('skype', 'Skype'), 
+            ('slack', 'Slack'),
+            ]:
         window.togroup('o')
     else:
         window.togroup('p')
@@ -118,6 +124,7 @@ def launch_widgets():
         widget.ThermalSensor(
             tag_sensor='Tctl',
             background=colors['current-line'],
+            update_interval=1,
         ),
         spawn_icon('\ue266'),
         widget.Memory(
@@ -173,8 +180,8 @@ keys = [
     Key([mod], 'b', lazy.spawn('qutebrowser')),
 
     # Launch ranger
-    Key([mod], 'm', lazy.spawn('alacritty -e weechat')),
-    Key([mod], 'e', lazy.spawn('alacritty -e ranger')),
+    Key([mod], 'm', lazy.spawn('st -e weechat')),
+    Key([mod], 'e', lazy.spawn('st -e ranger')),
 
     # Switch between windows in current stack pane
     Key([mod], 'k', lazy.layout.down(),

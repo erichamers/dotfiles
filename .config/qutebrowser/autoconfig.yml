@@ -8,6 +8,8 @@ config_version: 2
 settings:
   colors.completion.even.bg:
     global: '#333333'
+  colors.hints.bg:
+    global: '#282a36'
   content.geolocation:
     https://gshow.globo.com: true
     https://www.google.com: true
