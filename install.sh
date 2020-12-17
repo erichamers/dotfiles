@@ -41,6 +41,8 @@ sudo pacman -S xorg \
                virtualbox-host-modules-arch \
                virtualbox-guest-iso \
                python-dbus \
+               python-gobject \
+               libnotify \
                powerline \
                powerline-fonts \
                openssh \
@@ -72,25 +74,16 @@ yay -S visual-studio-code-bin \
        skypeforlinux-stable-bin \
        slack-desktop \ 
        powerline-vim \
+       qtile-git \
        timeshift --noconfirm
 
 echo "Installing ST terminal"
 git clone https://github.com/erichamers/st $HOME'/apps/st'
 cd $HOME'/apps/st' && sudo make clean install && cd $PROJECT_DIR
 
-# echo "Installing qtile"
-# pip install psutil
-# pip install cairocffi
-# pip install xcffib
-# pip install cffi
-# pip install six
-# git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
-# cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
-# 
-# sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
-
 sudo mkdir /usr/share/fonts/mononoki
 sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Mononoki.zip -P /usr/share/fonts/mononoki
+sudo unzip /usr/share/fonts/Mononoki.zip
 fc-cache
 
 echo "Installing configuration files" 
