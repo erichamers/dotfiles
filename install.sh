@@ -74,16 +74,16 @@ echo "Installing ST terminal"
 git clone https://github.com/erichamers/st $HOME'/apps/st'
 cd $HOME'/apps/st' && sudo make clean install && cd $PROJECT_DIR
 
-echo "Installing qtile"
-pip install psutil
-pip install cairocffi
-pip install xcffib
-pip install cffi
-pip install six
-git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
-cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
-
-sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
+# echo "Installing qtile"
+# pip install psutil
+# pip install cairocffi
+# pip install xcffib
+# pip install cffi
+# pip install six
+# git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
+# cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
+# 
+# sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
 
 sudo mkdir /usr/share/fonts/mononoki
 sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Mononoki.zip -P /usr/share/fonts/mononoki
