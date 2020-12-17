@@ -76,8 +76,10 @@ cd $HOME'/apps/st' && sudo make clean install && cd $PROJECT_DIR
 
 echo "Installing qtile"
 pip install psutil
+pip install cairocffi
+pip install xcffib
 git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
-cd $HOME'/projects/qtile/' && pip install -r requirements.txt && pip install . && cd $PROJECT_DIR
+cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
 
 sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
 
