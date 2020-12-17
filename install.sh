@@ -49,7 +49,7 @@ pyenv install 3.9.0
 pyenv global 3.9.0 
 
 
-echo 'export PATH="$HOME/.pyenv/bin:$PATH' >> $HOME"/.bashrc"
+echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> $HOME"/.bashrc"
 echo 'eval "$(pyenv init -)"' >> $HOME"/.bashrc"
 
 source $HOME'/.bashrc'
@@ -65,7 +65,6 @@ echo "Installing yay packages"
 yay -S visual-studio-code-bin \
        skypeforlinux-stable-bin \
        slack-desktop \ 
-       qtile-git \
        timeshift --noconfirm
 
 echo "Installing ST terminal"
