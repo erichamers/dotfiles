@@ -54,11 +54,12 @@ sudo modprobe vboxdrv
 pyenv install 3.9.0
 pyenv global 3.9.0 
 
-
 echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> $HOME"/.bashrc"
 echo 'eval "$(pyenv init -)"' >> $HOME"/.bashrc"
 
 source $HOME'/.bashrc'
+
+pip install wheel setuptools
 
 echo "Installing yay"
 sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git \
@@ -83,7 +84,7 @@ cd $HOME'/apps/st' && sudo make clean install && cd $PROJECT_DIR
 
 sudo mkdir /usr/share/fonts/mononoki
 sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Mononoki.zip -P /usr/share/fonts/mononoki
-sudo unzip /usr/share/fonts/Mononoki.zip
+sudo unzip /usr/share/fonts/mononoki/Mononoki.zip
 fc-cache
 
 echo "Installing configuration files" 

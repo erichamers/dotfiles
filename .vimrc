@@ -5,6 +5,7 @@ set background=dark
 set expandtab
 set laststatus=2
 set number
+set relativenumber
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set ruler
 
