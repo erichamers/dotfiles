@@ -79,7 +79,7 @@ cd $HOME'/apps/st' && sudo make clean install && cd $PROJECT_DIR
 
 sudo mkdir /usr/share/fonts/mononoki
 sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Mononoki.zip -P /usr/share/fonts/mononoki
-sudo unzip /usr/share/fonts/mononoki/Mononoki.zip
+sudo unzip /usr/share/fonts/mononoki/Mononoki.zip -d /usr/share/fonts/mononoki
 fc-cache
 
 echo "Installing configuration files" 
