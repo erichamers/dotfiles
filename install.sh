@@ -6,6 +6,7 @@ echo "Installing packages"
 
 sudo pacman -S xorg \
                xorg-xinit \
+               python-pip \
                nitrogen \
                nvidia \
                picom \
@@ -43,11 +44,6 @@ sudo pacman -S xorg \
 
 sudo usermod -aG docker eric
 sudo modprobe vboxdrv
-
-echo "Installing python" 
-
-pyenv install 3.9.0
-pyenv global 3.9.0
 
 echo "Installing yay"
 sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git \
