@@ -29,7 +29,6 @@ sudo pacman -S xorg \
                dunst \
                epdfview \
                neofetch \
-               timeshift \
                ueberzug \
                unclutter \
                unzip \
@@ -59,7 +58,8 @@ echo "Installing yay packages"
 
 yay -S visual-studio-code-bin \
        skypeforlinux-stable-bin \
-       slack-desktop --noconfirm
+       slack-desktop \ 
+       timeshift --noconfirm
 
 echo "Installing ST terminal"
 git clone https://github.com/erichamers/st $HOME'/apps/st'
