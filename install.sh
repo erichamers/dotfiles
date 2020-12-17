@@ -39,6 +39,8 @@ sudo pacman -S xorg \
                virtualbox-host-modules-arch \
                virtualbox-guest-iso \
                python-dbus \
+               powerline \
+               powerline-fonts \
                openssh \
                openvpn --noconfirm 
 
@@ -65,6 +67,7 @@ echo "Installing yay packages"
 yay -S visual-studio-code-bin \
        skypeforlinux-stable-bin \
        slack-desktop \ 
+       powerline-vim \
        timeshift --noconfirm
 
 echo "Installing ST terminal"
@@ -80,6 +83,10 @@ cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
 
 sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
 
+sudo mkdir /usr/share/fonts/mononoki
+sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Mononoki.zip -P /usr/share/fonts/mononoki
+fc-cache
+
 echo "Installing configuration files" 
 
 dotfiles=( $(find . -type f -name '.*') )
@@ -88,5 +95,7 @@ for file in "${dotfiles[@]}"
 do
     cp $file $HOME
 done
+
+source $HOME'/.bashrc'
 
 cp -r $PROJECT_DIR'/.config/' $HOME
