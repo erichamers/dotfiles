@@ -4,6 +4,8 @@ PROJECT_DIR=$HOME'/projects/dotfiles'
 
 echo "Installing packages"
 
+sudo pacman -Syy --noconfirm
+
 sudo pacman -S xorg \
                xorg-xinit \
                python-pip \
@@ -61,6 +63,8 @@ sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git \
     && sudo chown -R eric:eric /opt/yay-git
 
 cd /opt/yay-git && makepkg -si --noconfirm && cd $PROJECT_DIR
+
+yay -Syy --noconfirm
 
 echo "Installing yay packages"
 
