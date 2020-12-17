@@ -78,6 +78,8 @@ echo "Installing qtile"
 pip install psutil
 pip install cairocffi
 pip install xcffib
+pip install cffi
+pip install six
 git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
 cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
 
