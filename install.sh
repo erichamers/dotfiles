@@ -96,6 +96,7 @@ do
     cp $file $HOME
 done
 
+cp -r $PROJECT_DIR'/.config/' $HOME
+
 source $HOME'/.bashrc'
 
-cp -r $PROJECT_DIR'/.config/' $HOME
