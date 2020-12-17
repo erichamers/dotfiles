@@ -53,7 +53,7 @@ echo "Installing yay"
 sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git \
     && sudo chown -R eric:eric /opt/yay-git
 
-cd /opt/yay-git && makepkg -si && cd $PROJECT_DIR
+cd /opt/yay-git && makepkg -si --noconfirm && cd $PROJECT_DIR
 
 echo "Installing yay packages"
 
