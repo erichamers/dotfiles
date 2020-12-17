@@ -23,6 +23,7 @@ sudo pacman -S xorg \
                base-devel \
                xterm \
                weechat \
+               go \
                xclip \
                wmctrl \
                cronie \
