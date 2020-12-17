@@ -45,6 +45,15 @@ sudo pacman -S xorg \
 sudo usermod -aG docker eric
 sudo modprobe vboxdrv
 
+pyenv install 3.9.0
+pyenv global 3.9.0 
+
+
+echo 'export PATH="$HOME/.pyenv/bin:$PATH' >> $HOME"/.bashrc"
+echo 'eval "$(pyenv init -)"' >> $HOME"/.bashrc"
+
+source $HOME'/.bashrc'
+
 echo "Installing yay"
 sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git \
     && sudo chown -R eric:eric /opt/yay-git
@@ -63,14 +72,14 @@ echo "Installing ST terminal"
 git clone https://github.com/erichamers/st $HOME'/apps/st'
 cd $HOME'/apps/st' && sudo make clean install && cd $PROJECT_DIR
 
-# echo "Installing qtile"
-# pip install xcffib
-# pip install --no-cache-dir cairocffi
-# pip install psutil
-# git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
-# cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
+echo "Installing qtile"
+pip install xcffib
+pip install --no-cache-dir cairocffi
+pip install psutil
+git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
+cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
 
-# sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
+sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
 
 echo "Installing configuration files" 
 
