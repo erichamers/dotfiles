@@ -56,6 +56,7 @@ echo "Installing yay packages"
 yay -S visual-studio-code-bin \
        skypeforlinux-stable-bin \
        slack-desktop \ 
+       qtile-git \
        timeshift --noconfirm
 
 echo "Installing ST terminal"
