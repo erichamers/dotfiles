@@ -71,12 +71,7 @@ yay -Syy --noconfirm
 
 echo "Installing yay packages"
 
-yay -S visual-studio-code-bin \
-       skypeforlinux-stable-bin \
-       slack-desktop \ 
-       powerline-vim \
-       qtile-git \
-       timeshift --noconfirm
+yay -S visual-studio-code-bin skypeforlinux-stable-bin slack-desktop powerline-vim qtile-git timeshift --noconfirm
 
 echo "Installing ST terminal"
 git clone https://github.com/erichamers/st $HOME'/apps/st'
