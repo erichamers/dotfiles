@@ -53,7 +53,7 @@ config.set('url.default_page', '/home/eric/.config/qutebrowser/home/homepage.htm
 config.set('url.start_pages', '/home/eric/.config/qutebrowser/home/homepage.html')
 config.set('url.searchengines', {'DEFAULT': 'http://www.google.com/search?q={}'})
 config.set('tabs.show', 'multiple')
-config.set('statusbar.show', 'in-mode')
+config.set('statusbar.show', 'always')
 config.set('fonts.default_family', 'mononoki nerd font mono')
 config.set('fonts.default_size', '12px')
 config.set('colors.hints.bg', colors['yellow'])

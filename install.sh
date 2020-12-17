@@ -1,3 +1,86 @@
 #!/bin/bash
 
-cp -r .config ~/
+PROJECT_DIR=$HOME'/projects/dotfiles'
+
+echo "Installing packages"
+
+sudo pacman -S xorg \
+               xorg-xinit \
+               nitrogen \
+               nvidia \
+               picom \
+               alsa-utils \
+               pulseaudio \
+               pulseaudio-alsa \
+               pyenv \
+               docker \
+               wget \
+               curl \
+               ranger \
+               rofi \
+               qutebrowser \
+               mlocate \
+               base-devel \
+               xterm \
+               weechat \
+               xclip \
+               wmctrl \
+               cronie \
+               dunst \
+               epdfview \
+               neofetch \
+               timeshift \
+               ueberzug \
+               unclutter \
+               unzip \
+               pango \
+               virtualbox \
+               virtualbox-host-modules-arch \
+               virtualbox-guest-iso \
+               python-dbus \
+               openssh \
+               openvpn --noconfirm 
+
+sudo usermod -aG docker eric
+sudo modprobe vboxdrv
+
+echo "Installing python" 
+
+pyenv install 3.9.0
+pyenv global 3.9.0
+
+echo "Installing yay"
+sudo git clone https://aur.archlinux.org/yay-git.git /opt/yay-git \
+    && sudo chown -R eric:eric /opt/yay-git
+
+cd /opt/yay-git && makepkg -si && cd $PROJECT_DIR
+
+echo "Installing yay packages"
+
+yay -S visual-studio-code-bin \
+       skypeforlinux-stable-bin \
+       slack-desktop --noconfirm
+
+echo "Installing ST terminal"
+git clone https://github.com/erichamers/st $HOME'/apps/st'
+cd $HOME'/apps/st' && sudo make clean install && cd $PROJECT_DIR
+
+echo "Installing qtile"
+pip install xcffib
+pip install --no-cache-dir cairocffi
+pip install psutil
+git clone https://github.com/qtile/qtile.git $HOME'/projects/qtile/'
+cd $HOME'/projects/qtile/' && pip install . && cd $PROJECT_DIR
+
+sudo ln -s $HOME'/projects/qtile/bin/qtile' /usr/bin/qtile
+
+echo "Installing configuration files" 
+
+dotfiles=( $(find . -type f -name '.*') )
+
+for file in "${dotfiles[@]}" 
+do
+    cp $file $HOME
+done
+
+cp -r $PROJECT_DIR'/.config/' $HOME

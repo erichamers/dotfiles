@@ -66,7 +66,8 @@ def start_picom():
 def window_to_group(window):
     if window.window.get_wm_class() in [
             ('qutebrowser', 'qutebrowser'),
-            ('Xephyr', 'Xephyr')
+            ('Xephyr', 'Xephyr'),
+            ('google-chrome-unstable', 'Google-chrome-unstable'),
             ]:
         window.togroup('u')
     elif (window.window.get_wm_class() == ('st-256color', 'st-256color')) and (window.window.get_name() == 'weechat'): 
@@ -119,6 +120,9 @@ def launch_widgets():
             foreground=colors['lighter_gray'],
         ),
         widget.Spacer(),
+        widget.CurrentLayout(
+            foreground=colors['lighter_gray'],
+        ),
         widget.TextBox('\uf438', foreground=colors['current-line'], padding=-12, fontsize=62),
         spawn_icon('\uf2c9', fontsize=14),
         widget.ThermalSensor(
@@ -235,11 +239,18 @@ keys = [
         [], "XF86AudioMute",
         lazy.spawn("amixer set 'Master' toggle")
     ),
+    Key([mod], 'Tab', lazy.group.next_window(), lazy.window.bring_to_front()),
 ]
 
 default_groups_config = {
     'persist': True
 } 
+
+default_layout_config = {
+    'border_width': 1,
+    'border_focus': colors['foreground'], 
+    'border_normal': colors['comment'],
+}
 
 groups = [
     Group(
@@ -257,11 +268,19 @@ groups = [
     Group(
         name='o', 
         label='\uf9b0',
+        layouts=[
+            layout.Floating(
+            ),
+        ],
         **default_groups_config
     ),
     Group(
         name='p', 
         label='\ufc6e',
+        layouts= [
+            layout.Floating(
+            ),    
+        ],
         **default_groups_config
         ) 
 ]
@@ -280,12 +299,6 @@ for i in groups:
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
         #     desc="move focused window to group {}".format(i.name)),
     ])
-
-default_layout_config = {
-    'border_width': 1,
-    'border_focus': colors['foreground'], 
-    'border_normal': colors['comment'],
-}
 
 monadtall_config = {
     'margin': 10,
@@ -384,6 +397,9 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
     Match(title='Xephyr'),
+    Match(title='Skype'),
+    Match(title='weechat'),
+    Match(title='Slack'),
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
