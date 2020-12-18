@@ -164,6 +164,15 @@ def launch_widgets():
 
 xephyr_command = "/home/eric/projects/qtile/scripts/xephyr -c /home/eric/projects/qtile/libqtile/resources/default_config.py"
 
+dmenu_command = """
+    dmenu_run -i -fn "mononoki nerd font mono-9" \
+            -nb "#282a36" \
+            -nf "#f8f8f2" \
+            -sb "#ff5555" \
+            -h 25 \
+            -p Run 
+    """
+
 keys = [
     # Move around windows
     Key([mod], 'x', lazy.spawn('xterm -e {}'.format(xephyr_command))),
@@ -227,7 +236,8 @@ keys = [
 
     Key([mod, 'control'], 'r', lazy.restart(), desc='Restart qtile'),
     Key([mod, 'control'], 'q', lazy.shutdown(), desc='Shutdown qtile'),
-    Key([mod], 'r', lazy.spawn('rofi -show run -display-run ">>>"')),
+    Key([mod], 'n', lazy.spawn(dmenu_command)),
+    Key([mod], 'r', lazy.spawn('rofi -show drun -show-icons')),
     Key(
         [], "XF86AudioRaiseVolume",
         lazy.spawn("amixer set 'Master' 1%+")
@@ -352,12 +362,12 @@ screens = [
     Screen(
         top=bar.Bar(
             widgets=launch_widgets(),
-            margin=[0, 0, 40, 0],
+            margin=[0, 0, 90, 0],
             **default_bar_config,
             ), 
-        left=bar.Gap(65),
-        right=bar.Gap(65),
-        bottom=bar.Gap(65),
+        left=bar.Gap(100),
+        right=bar.Gap(100),
+        bottom=bar.Gap(90),
     ), 
 ]
 

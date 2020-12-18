@@ -1,8 +1,18 @@
 /*Dracula theme based on the Purple official rofi theme*/
 
+configuration {
+    location: 1;
+    width: 20;
+    display-drun: "Search";
+}
+
+element-icon {
+    size: 25px;
+}
+
 * {
-    font: "mononoki Nerd Font Mono 9";
-    foreground: #f8f8f2;
+    font: "mononoki Nerd Font Mono 9"; 
+    foreground: #f8f8f2; 
     background-color: #282a36;
     active-background: #6272a4;
     urgent-background: #ff5555;
@@ -17,9 +27,10 @@
 
 #window {
     background-color: @background;
+    height:           100%;
     border:           1;
-    border-radius: 6;
-    border-color: @bordercolor;
+    border-radius:    6;
+    border-color:     @bordercolor;
     padding:          5;
 }
 #mainbox {
@@ -125,6 +136,9 @@
 }
 #textbox-prompt-colon {
     expand:     false;
-    background-color: #191a21;
+    background-color: @dark-gray;
+    text-color: @foreground;
+    padding:    2;
+    str:        ":";
     margin:     0px 0em 0em 0em ;
 }

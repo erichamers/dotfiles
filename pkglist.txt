@@ -6,6 +6,7 @@ binutils
 bison
 bower
 cronie
+dmenu-git
 docker
 efibootmgr
 fakeroot
@@ -16,6 +17,7 @@ git
 groff
 grub
 gvim
+htop
 linux
 linux-firmware
 m4
@@ -51,6 +53,7 @@ texinfo
 timeshift
 unclutter
 unzip
+vi
 virtualbox
 visual-studio-code-bin
 vulkan-intel

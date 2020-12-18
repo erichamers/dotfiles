@@ -1,0 +1,27 @@
+configuration { modi: "run"; width: 100;
+	font: "mononoki nerd font mono 9";
+	location: 1;
+	disable-history: true;
+	separator-style: "none";
+	hide-scrollbar: true;
+}
+
+* {
+    background-color: #282a36;
+    text-color: #f8f8f2;
+}
+
+window {
+    background-color: #282a36;
+    height: 25px;
+    orientation: horizontal;
+}
+
+inputbar {
+}
+
+
+/*color-normal: "#282a36, #f8f8f2, #282a36, #6272a4, #f8f8f2";*/
+/*color-urgent: "#282a36, #f8f8f2, #282a36, #6272a4, #f8f8f2";*/
+/*color-active: "#282a36, #f8f8f2, #282a36, #6272a4, #f8f8f2";*/
+/*color-window: "#282a36, #f8f8f2, #282a36, #6272a4, #f8f8f2";*/
