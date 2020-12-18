@@ -6,6 +6,8 @@
     background-color: #282a36;
     active-background: #6272a4;
     urgent-background: #ff5555;
+    dark-gray: #191a21;
+    light-gray: #a9a9a9;
     selected-background: @active-background;
     selected-urgent-background: @urgent-background;
     selected-active-background: @active-background;
@@ -34,7 +36,7 @@
 }
 #listview {
     fixed-height: 0;
-    border:       2px dash 0px 0px ;
+    border:       0px dash 0px 0px ;
     border-color: @bordercolor;
     spacing:      2px ;
     scrollbar:    false;
@@ -101,22 +103,28 @@
 }
 #case-indicator {
     spacing:    0;
+    background-color: @dark-gray;
     text-color: @foreground;
 }
 #entry {
     spacing:    0;
-    text-color: @foreground;
+    background-color: @dark-gray;
+    padding: 3px;
+    text-color: @light-gray;
 }
 #prompt {
     spacing:    0;
-    text-color: @foreground;
+    padding: 3px;
+    background-color: @dark-gray;
+    text-color: @light-gray;
 }
 #inputbar {
+    padding: 3px;
+    background-color: #191a21;
     children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
 }
 #textbox-prompt-colon {
     expand:     false;
-    str:        ":";
-    margin:     0px 0.3em 0em 0em ;
-    text-color: @foreground;
+    background-color: #191a21;
+    margin:     0px 0em 0em 0em ;
 }

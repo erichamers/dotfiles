@@ -25,4 +25,6 @@ eval "$(pyenv init -)"
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-. /usr/share/powerline/bindings/bash/powerline.sh
+. /home/eric/.pyenv/versions/3.9.0/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh 
+
+export PATH=$PATH:$HOME/.pyenv/versions/3.9.0/bin

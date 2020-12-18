@@ -18,6 +18,7 @@ settings:
   colors.hints.bg:
     global: '#282a36'
   content.geolocation:
+    https://g1.globo.com: true
     https://gshow.globo.com: true
     https://www.google.com: true
     https://www.jenseninvestment.com: true

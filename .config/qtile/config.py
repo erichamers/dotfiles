@@ -77,6 +77,7 @@ def window_to_group(window):
     elif window.window.get_wm_class() in [
             ('st-256color', 'st-256color'),
             ('code', 'Code'), 
+            ('subl','Subl'),
             ]:
         window.togroup('i')
     elif window.window.get_wm_class() in [
@@ -226,7 +227,7 @@ keys = [
 
     Key([mod, 'control'], 'r', lazy.restart(), desc='Restart qtile'),
     Key([mod, 'control'], 'q', lazy.shutdown(), desc='Shutdown qtile'),
-    Key([mod], 'r', lazy.spawn('rofi -show run')),
+    Key([mod], 'r', lazy.spawn('rofi -show run -display-run ">>>"')),
     Key(
         [], "XF86AudioRaiseVolume",
         lazy.spawn("amixer set 'Master' 1%+")
@@ -316,7 +317,7 @@ layouts = [
     layout.MonadTall(
         **default_layout_config,
         **monadtall_config,
-        name='MonadTall'
+        name='MonadTall',
     ),
     # layout.MonadWide(),
     # layout.RatioTile(),

@@ -4,10 +4,12 @@ automake
 base
 binutils
 bison
+bower
 cronie
 docker
 efibootmgr
 fakeroot
+firefox
 flex
 gcc
 git
@@ -22,6 +24,7 @@ mlocate
 neofetch
 networkmanager
 nitrogen
+nodejs-requirejs
 nvidia
 openssh
 openvpn
@@ -29,9 +32,7 @@ os-prober
 patch
 picom
 pkgconf
-powerline
 powerline-fonts
-powerline-vim
 pulseaudio
 pulseaudio-alsa
 pyenv
@@ -44,6 +45,7 @@ ranger
 rofi
 skypeforlinux-stable-bin
 slack-desktop
+sublime-text-3
 sudo
 texinfo
 timeshift
