@@ -59,7 +59,7 @@ terminal = guess_terminal()
 @hook.subscribe.startup_once
 def start_picom():
     home = os.path.expanduser('~')
-    subprocess.Popen(['/usr/bin/picom'])
+#     subprocess.Popen(['/usr/bin/picom --experimental-backends'])
     subprocess.Popen(['killall pulseaudio', '&' ,'/usr/bin/pulseaudio', '--start'])
 
 @hook.subscribe.client_new
@@ -67,7 +67,7 @@ def window_to_group(window):
     if window.window.get_wm_class() in [
             ('qutebrowser', 'qutebrowser'),
             ('Xephyr', 'Xephyr'),
-            ('google-chrome-unstable', 'Google-chrome-unstable'),
+            ('google-chrome', 'Google-chrome'),
             ]:
         window.togroup('u')
     elif (window.window.get_wm_class() == ('st-256color', 'st-256color')) and (window.window.get_name() == 'weechat'): 

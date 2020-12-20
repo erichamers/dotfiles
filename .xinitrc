@@ -35,6 +35,7 @@ fi
 nitrogen --restore &
 unclutter --timeout 1 &
 xrandr --output DP-4 --auto --output DP-0 --auto --left-of DP-4
+picom --experimental-backends &
 xset r rate 300 40 
 exec qtile 
 

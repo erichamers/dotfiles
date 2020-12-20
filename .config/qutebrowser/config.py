@@ -76,7 +76,7 @@ config.set('colors.completion.category.bg', colors['background'])
 config.set('colors.completion.category.fg', colors['foreground'])
 config.set('colors.completion.category.border.top', colors['background'])
 config.set('colors.completion.category.border.bottom', colors['background'])
-config.set('colors.completion.item.selected.bg', colors['comment'])
+config.set('colors.completion.item.selected.bg', colors['red'])
 
 # Keybindings
 config.bind('<Ctrl+r>', 'restart')
