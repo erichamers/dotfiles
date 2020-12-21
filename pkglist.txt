@@ -50,6 +50,7 @@ skypeforlinux-stable-bin
 slack-desktop
 sublime-text-3
 sudo
+tabbed-git
 texinfo
 timeshift
 unclutter

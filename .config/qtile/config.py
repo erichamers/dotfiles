@@ -68,6 +68,7 @@ def window_to_group(window):
             ('qutebrowser', 'qutebrowser'),
             ('Xephyr', 'Xephyr'),
             ('google-chrome', 'Google-chrome'),
+            ('surf', 'Surf'),
             ]:
         window.togroup('u')
     elif (window.window.get_wm_class() == ('st-256color', 'st-256color')) and (window.window.get_name() == 'weechat'): 
@@ -192,6 +193,7 @@ keys = [
 
     # Launch qutebrowser
     Key([mod], 'b', lazy.spawn('qutebrowser')),
+    Key([mod], 's', lazy.spawn('surf /home/eric/.config/qutebrowser/home/homepage.html')),
 
     # Launch ranger
     Key([mod], 'm', lazy.spawn('st -e weechat')),
