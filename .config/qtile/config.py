@@ -69,6 +69,8 @@ def window_to_group(window):
             ('Xephyr', 'Xephyr'),
             ('google-chrome', 'Google-chrome'),
             ('surf', 'Surf'),
+            ('tabbed', 'tabbed'),
+            ('Navigator', 'firefox'),
             ]:
         window.togroup('u')
     elif (window.window.get_wm_class() == ('st-256color', 'st-256color')) and (window.window.get_name() == 'weechat'): 
@@ -193,7 +195,7 @@ keys = [
 
     # Launch qutebrowser
     Key([mod], 'b', lazy.spawn('qutebrowser')),
-    Key([mod], 's', lazy.spawn('surf /home/eric/.config/qutebrowser/home/homepage.html')),
+    Key([mod], 's', lazy.spawn('tabbed surf -e')),
 
     # Launch ranger
     Key([mod], 'm', lazy.spawn('st -e weechat')),
@@ -238,8 +240,8 @@ keys = [
 
     Key([mod, 'control'], 'r', lazy.restart(), desc='Restart qtile'),
     Key([mod, 'control'], 'q', lazy.shutdown(), desc='Shutdown qtile'),
-    Key([mod], 'n', lazy.spawn(dmenu_command)),
-    Key([mod], 'r', lazy.spawn('rofi -show drun -show-icons')),
+    Key([mod], 'r', lazy.spawn(dmenu_command)),
+#    Key([mod], 'r', lazy.spawn('rofi -show drun -show-icons')),
     Key(
         [], "XF86AudioRaiseVolume",
         lazy.spawn("amixer set 'Master' 1%+")
