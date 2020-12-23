@@ -12,6 +12,7 @@ bower
 cronie
 dmenu-git
 docker
+dunst
 efibootmgr
 fakeroot
 firefox
@@ -24,6 +25,7 @@ gnome-control-center
 google-chrome
 groff
 grub
+gst-libav
 gvim
 hspell
 htop
@@ -74,6 +76,7 @@ virtualbox
 visual-studio-code-bin
 vulkan-intel
 webkit2gtk
+webkitgtk
 weechat
 wget
 which

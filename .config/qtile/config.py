@@ -71,6 +71,7 @@ def window_to_group(window):
             ('surf', 'Surf'),
             ('tabbed', 'tabbed'),
             ('Navigator', 'firefox'),
+            ('firefox', 'firefox'),
             ]:
         window.togroup('u')
     elif (window.window.get_wm_class() == ('st-256color', 'st-256color')) and (window.window.get_name() == 'weechat'): 
@@ -176,6 +177,15 @@ dmenu_command = """
             -p Run 
     """
 
+surf_command = f"""
+    tabbed \
+        -t {colors["background"]} \
+        -T {colors["foreground"]} \
+        -o {colors["dark_gray"]} \
+        -O {colors["lighter_gray"]} \
+    surf -e
+"""
+
 keys = [
     # Move around windows
     Key([mod], 'x', lazy.spawn('xterm -e {}'.format(xephyr_command))),
@@ -195,7 +205,7 @@ keys = [
 
     # Launch qutebrowser
     Key([mod], 'b', lazy.spawn('qutebrowser')),
-    Key([mod], 's', lazy.spawn('tabbed surf -e')),
+    Key([mod], 's', lazy.spawn(f'tabbed -t {colors["background"]} surf -e')),
 
     # Launch ranger
     Key([mod], 'm', lazy.spawn('st -e weechat')),
