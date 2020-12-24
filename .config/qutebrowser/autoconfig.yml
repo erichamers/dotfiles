@@ -35,6 +35,8 @@ settings:
     https://app.slack.com: true
     https://calendar.google.com: true
     https://meet.google.com: true
+    https://tryhackme.com: true
+    https://txxx.com: false
     https://watch-video.net: true
     https://web.whatsapp.com: true
     https://www.reddit.com: true

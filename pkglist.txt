@@ -3,12 +3,15 @@ aspell
 autoconf
 automake
 base
+bc
 binutils
 bison
 blueman
 bluez
-bluez-utils
+bluez-hid2hci
+bluez-utils-compat
 bower
+burpsuite
 cronie
 dmenu-git
 docker
@@ -22,6 +25,8 @@ gcr
 git
 gnome-bluetooth
 gnome-control-center
+gnu-netcat
+gobuster-git
 google-chrome
 groff
 grub
@@ -39,7 +44,9 @@ make
 mlocate
 neofetch
 networkmanager
+nikto
 nitrogen
+nmap
 nodejs-requirejs
 nuspell
 nvidia
@@ -62,6 +69,7 @@ ranger
 rofi
 skypeforlinux-stable-bin
 slack-desktop
+spotify
 sublime-text-3
 sudo
 tabbed-git
@@ -73,6 +81,7 @@ unzip
 usbutils
 vi
 virtualbox
+virtualbox-guest-utils
 visual-studio-code-bin
 vulkan-intel
 webkit2gtk
