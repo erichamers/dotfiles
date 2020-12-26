@@ -17,6 +17,8 @@ alias copy='xclip -sel clip'
 alias ssh='env TERM=xterm-256color ssh'
 alias screenshot='maim -s | xclip -selection clipboard -t image/png'
 alias clean='clear && source ~/.bashrc'
+alias gobuster='go run /home/eric/projects/ctf/tools/gobuster/main.go'
+alias enum4linux='perl /home/eric/projects/ctf/tools/enum4linux/enum4linux.pl'
 PS1='[\u@\h \W]\$ '
 
 export PATH="$HOME/.pyenv/bin:$PATH"
