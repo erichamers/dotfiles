@@ -66,11 +66,17 @@ keys = [
     Key(
         [mod],
         "r",
-        lazy.spawn("dmenu_run -nb \"black\" -fn \"JetBrains Mono Nerd Font-8\""),
+        lazy.spawn('dmenu_run -nb "black" -fn "JetBrains Mono Nerd Font-8"'),
         desc="Spawn a command using a prompt widget",
     ),
     # Custom commands
-    Key(["mod1"], "Tab", lazy.group.next_window(), lazy.window.bring_to_front(), desc="Focus next window"),
+    Key(
+        ["mod1"],
+        "Tab",
+        lazy.group.next_window(),
+        lazy.window.bring_to_front(),
+        desc="Focus next window",
+    ),
     # Key(["mod1"], "Tab", lazy.group.next_window(), desc="Focus next window"),
     Key([mod], "period", lazy.next_screen(), desc="Focus next monitor"),
     Key([mod], "b", lazy.spawn("google-chrome-stable"), desc="Launch Google Chrome"),
@@ -78,27 +84,34 @@ keys = [
 
 groups_dict = {
     # Key: keymap for that group | Value: Group object
-    "u": Group(name="web", matches=[Match(wm_class="Google-chrome")]),
-    "i": Group(name="dev", matches=[Match(wm_class="Alacritty")]),
-    "o": Group(name="slack", matches=[Match(wm_class="Slack")]),
+    "y": Group(name="web", matches=[Match(wm_class="Google-chrome")]),
+    "u": Group(name="dev", matches=[Match(wm_class="Alacritty")]),
+    "i": Group(name="slack", matches=[Match(wm_class="Slack")]),
+    "o": Group(
+        name="teams",
+        matches=[
+            Match(title="Chat | Microsoft Teams"),
+            Match(title="Microsoft Teams - Preview"),
+        ],
+    ),
     "p": Group(
-            name="teams",
-            matches=[
-                Match(title="Chat | Microsoft Teams"),
-                Match(title="Microsoft Teams - Preview"),
-            ],
-        ),
-    "m": Group(
-            name="misc",
-            matches=[
-                Match(wm_class="zoom"),
-                Match(wm_class="gpclient"),
-            ],
-            layout_opts={"border_width": 0, "margin": 0}
-        ),
+        name="etc",
+        matches=[
+            Match(wm_class="zoom"),
+            Match(wm_class="gpclient"),
+        ],
+    ),
 }
 
 groups = groups_dict.values()
+
+default_layout_opts = {
+    "border_width": 2,
+    "margin": 8,
+    "border_focus": "#e1acff",
+    "border_normal": "#1d2330",
+    "border_on_single": True,
+}
 
 for k, v in groups_dict.items():
     keys.extend(
@@ -119,7 +132,7 @@ for k, v in groups_dict.items():
     )
 
 layouts = [
-    layout.Columns(border_focus="#0277bd", border_width=2),
+    layout.Columns(**default_layout_opts),
 ]
 
 widget_defaults = dict(
