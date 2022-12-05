@@ -116,8 +116,9 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias vim="nvim"
-alias ls="lsd"
+alias ls="lsd --group-dirs first"
 alias lt="ls -alh --tree"
+alias g="git"
 
 export XDG_CONFIG_HOME=/home/eric/.config/
 export BROWSER=/usr/bin/google-chrome-stable
