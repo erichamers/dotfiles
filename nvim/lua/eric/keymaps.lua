@@ -20,7 +20,12 @@ nnoremap("<leader>fh", builtin.help_tags)
 nnoremap("<C-h>", "<C-W>h")
 nnoremap("<C-l>", "<C-W>l")
 
--- nnoremap("<C-t>", "<cmd>Ex<CR>")
--- nnoremap("<C-T>", "<cmd>Rex<CR>")
 -- Nvim-Tree keymaps
 nnoremap("<C-t>", "<cmd>NvimTreeToggle<CR>")
+
+-- PGDOWN PGUP remaster
+nnoremap("<C-u>", "<C-u>zz")
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("G", "Gzz")
+nnoremap("n", "nzz")
+nnoremap("N", "Nzz")

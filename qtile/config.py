@@ -28,6 +28,13 @@ def autostart_once():
         subprocess.Popen(p)
 
 
+@lazy.function
+def alt_tab():
+    lazy.group.next_window()
+    lazy.window.bring_to_front()
+    lazy.layout.next()
+
+
 keys = [
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -73,11 +80,9 @@ keys = [
     Key(
         ["mod1"],
         "Tab",
-        lazy.group.next_window(),
-        lazy.window.bring_to_front(),
+        alt_tab(),
         desc="Focus next window",
     ),
-    # Key(["mod1"], "Tab", lazy.group.next_window(), desc="Focus next window"),
     Key([mod], "period", lazy.next_screen(), desc="Focus next monitor"),
     Key([mod], "b", lazy.spawn("google-chrome-stable"), desc="Launch Google Chrome"),
 ]
@@ -105,14 +110,6 @@ groups_dict = {
 
 groups = groups_dict.values()
 
-default_layout_opts = {
-    "border_width": 2,
-    "margin": 8,
-    "border_focus": "#e1acff",
-    "border_normal": "#1d2330",
-    "border_on_single": True,
-}
-
 for k, v in groups_dict.items():
     keys.extend(
         [
@@ -131,7 +128,16 @@ for k, v in groups_dict.items():
         ]
     )
 
+default_layout_opts = {
+    "border_width": 2,
+    "margin": 8,
+    "border_focus": "#e1acff",
+    "border_normal": "#1d2330",
+    "border_on_single": True,
+}
+
 layouts = [
+    layout.Stack(**default_layout_opts, num_stacks=1),
     layout.Columns(**default_layout_opts),
 ]
 
@@ -146,6 +152,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.CurrentLayout(),
                 widget.GroupBox(
                     highlight_method="block",
                 ),
@@ -166,6 +173,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.CurrentLayout(),
                 widget.GroupBox(
                     highlight_method="block",
                 ),
