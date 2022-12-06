@@ -28,13 +28,6 @@ def autostart_once():
         subprocess.Popen(p)
 
 
-@lazy.function
-def alt_tab():
-    lazy.group.next_window()
-    lazy.window.bring_to_front()
-    lazy.layout.next()
-
-
 keys = [
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -77,14 +70,19 @@ keys = [
         desc="Spawn a command using a prompt widget",
     ),
     # Custom commands
+    Key([mod], "Print", lazy.spawn("flameshot full -p /home/eric/screenshots/")),
+    Key([mod, "shift"], "Print", lazy.spawn("flameshot gui -p /home/eric/screenshots/")),
     Key(
         ["mod1"],
         "Tab",
-        alt_tab(),
+        lazy.group.next_window(),
+        lazy.window.bring_to_front(),
         desc="Focus next window",
     ),
     Key([mod], "period", lazy.next_screen(), desc="Focus next monitor"),
     Key([mod], "b", lazy.spawn("google-chrome-stable"), desc="Launch Google Chrome"),
+    Key([mod], "e", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +10%")),
+    Key([mod], "q", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -10%")),
 ]
 
 groups_dict = {
@@ -156,8 +154,8 @@ screens = [
                 widget.GroupBox(
                     highlight_method="block",
                 ),
-                widget.Prompt(),
-                widget.WindowName(),
+                widget.Sep(padding=30),
+                widget.TaskList(highlight_method="block", max_title_width=300),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
@@ -165,6 +163,7 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Memory(format="RAM Usage: {MemUsed:.0f} MB", padding=10),
+                widget.PulseVolume(padding=10, limit_max_volume=True),
                 widget.Clock(format="%b %d, %a | %I:%M:%S %p", padding=10),
             ],
             24,
@@ -177,8 +176,8 @@ screens = [
                 widget.GroupBox(
                     highlight_method="block",
                 ),
-                widget.Prompt(),
-                widget.WindowName(),
+                widget.Sep(padding=30),
+                widget.TaskList(highlight_method="block", max_title_width=300, txt_floating=""),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
@@ -186,7 +185,9 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Systray(icon_size=15, padding=10),
+                widget.Sep(padding=30),
                 widget.Memory(format="RAM Usage: {MemUsed:.0f} MB", padding=10),
+                widget.PulseVolume(padding=10, limit_max_volume=True),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p", padding=10),
             ],
             24,
