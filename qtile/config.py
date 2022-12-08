@@ -63,15 +63,17 @@ keys = [
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    # Custom commands
     Key(
         [mod],
         "r",
         lazy.spawn('dmenu_run -nb "black" -fn "JetBrains Mono Nerd Font-8"'),
         desc="Spawn a command using a prompt widget",
     ),
-    # Custom commands
     Key([mod], "Print", lazy.spawn("flameshot full -p /home/eric/screenshots/")),
-    Key([mod, "shift"], "Print", lazy.spawn("flameshot gui -p /home/eric/screenshots/")),
+    Key(
+        [mod, "shift"], "Print", lazy.spawn("flameshot gui -p /home/eric/screenshots/")
+    ),
     Key(
         ["mod1"],
         "Tab",
@@ -83,6 +85,12 @@ keys = [
     Key([mod], "b", lazy.spawn("google-chrome-stable"), desc="Launch Google Chrome"),
     Key([mod], "e", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +10%")),
     Key([mod], "q", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -10%")),
+    Key(
+        ["control"],
+        "space",
+        lazy.widget["keyboardlayout"].next_keyboard(),
+        desc="Next keyboard layout",
+    ),
 ]
 
 groups_dict = {
@@ -102,6 +110,7 @@ groups_dict = {
         matches=[
             Match(wm_class="zoom"),
             Match(wm_class="gpclient"),
+            Match(wm_class="Postman"),
         ],
     ),
 }
@@ -120,7 +129,7 @@ for k, v in groups_dict.items():
             Key(
                 [mod, "shift"],
                 k,
-                lazy.window.togroup(v.name, switch_group=True),
+                lazy.window.togroup(v.name, switch_group=False),
                 desc="Switch to & move focused window to group {}".format(v.name),
             ),
         ]
@@ -155,7 +164,9 @@ screens = [
                     highlight_method="block",
                 ),
                 widget.Sep(padding=30),
-                widget.TaskList(highlight_method="block", max_title_width=300),
+                widget.TaskList(
+                    highlight_method="block", max_title_width=300, txt_floating=""
+                ),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
@@ -177,7 +188,9 @@ screens = [
                     highlight_method="block",
                 ),
                 widget.Sep(padding=30),
-                widget.TaskList(highlight_method="block", max_title_width=300, txt_floating=""),
+                widget.TaskList(
+                    highlight_method="block", max_title_width=300, txt_floating=""
+                ),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
@@ -186,6 +199,10 @@ screens = [
                 ),
                 widget.Systray(icon_size=15, padding=10),
                 widget.Sep(padding=30),
+                widget.KeyboardLayout(
+                    configured_keyboards=["us", "us_intl"],
+                    display_map={"us": "US", "us_intl": "BR"},
+                ),
                 widget.Memory(format="RAM Usage: {MemUsed:.0f} MB", padding=10),
                 widget.PulseVolume(padding=10, limit_max_volume=True),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p", padding=10),
