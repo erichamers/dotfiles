@@ -1,7 +1,6 @@
 import subprocess
 
-from libqtile import hook
-from libqtile import bar, layout, widget
+from libqtile import bar, hook, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -78,7 +77,6 @@ keys = [
         ["mod1"],
         "Tab",
         lazy.group.next_window(),
-        lazy.window.bring_to_front(),
         desc="Focus next window",
     ),
     Key([mod], "period", lazy.next_screen(), desc="Focus next monitor"),
@@ -137,7 +135,7 @@ for k, v in groups_dict.items():
 
 default_layout_opts = {
     "border_width": 2,
-    "margin": 8,
+    "margin": 0,
     "border_focus": "#e1acff",
     "border_normal": "#1d2330",
     "border_on_single": True,
@@ -172,6 +170,10 @@ screens = [
                         "launch": ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
+                ),
+                widget.KeyboardLayout(
+                    configured_keyboards=["us", "us_intl"],
+                    display_map={"us": "US", "us_intl": "BR"},
                 ),
                 widget.Memory(format="RAM Usage: {MemUsed:.0f} MB", padding=10),
                 widget.PulseVolume(padding=10, limit_max_volume=True),
@@ -227,7 +229,7 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
-follow_mouse_focus = False
+follow_mouse_focus = True
 bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(
