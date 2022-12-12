@@ -1,31 +1,13 @@
-local nnoremap = require("eric.mapper").nnoremap
+vim.keymap.set("n", "<leader>t", "<cmd>Ex<CR>", {})
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", {})
 
--- nnoremap("<leader>q", "<cmd>Ex<CR>")
+-- Telescope keymappings
+local builtin = require "telescope.builtin"
+vim.keymap.set("n", "<leader>p", builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 
--- Close current buffer
-nnoremap("<C-w>", "<cmd>bd<CR>")
-
--- Switch between buffers
-nnoremap("<C-k>", "<cmd>bnext<CR>")
-nnoremap("<C-j>", "<cmd>bprev<CR>")
-
-local builtin = require("telescope.builtin")
-
-nnoremap("<C-p>", builtin.find_files)
-nnoremap("<leader>fg", builtin.live_grep)
-nnoremap("<leader>fb", builtin.buffers)
-nnoremap("<leader>fh", builtin.help_tags)
-
--- Move between splits
-nnoremap("<C-h>", "<C-W>h")
-nnoremap("<C-l>", "<C-W>l")
-
--- Nvim-Tree keymaps
-nnoremap("<C-t>", "<cmd>NvimTreeToggle<CR>")
-
--- PGDOWN PGUP remaster
-nnoremap("<C-u>", "<C-u>zz")
-nnoremap("<C-d>", "<C-d>zz")
-nnoremap("G", "Gzz")
-nnoremap("n", "nzz")
-nnoremap("N", "Nzz")
+-- Buffer navigation
+vim.keymap.set("n", "<C-w>", "<cmd>bd<CR>", {})
+vim.keymap.set("n", "<C-j>", "<cmd>bprevious<CR>", {})
+vim.keymap.set("n", "<C-k>", "<cmd>bnext<CR>", {})
