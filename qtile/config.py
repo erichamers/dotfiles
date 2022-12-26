@@ -14,6 +14,7 @@ def autostart():
     processes = [
         ["/usr/bin/dunst"],
         ["/usr/bin/picom"],
+        ["/usr/bin/lxqt-policykit-agent"],
         ["/usr/bin/unclutter", "--timeout", "1"],
     ]
     for p in processes:
@@ -32,7 +33,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.window.toggle_floating(), desc="Toggle floating"),
+    # Key([mod], "space", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key(
         [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
     ),
@@ -84,7 +85,7 @@ keys = [
     Key([mod], "e", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +10%")),
     Key([mod], "q", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -10%")),
     Key(
-        ["control"],
+        [mod],
         "space",
         lazy.widget["keyboardlayout"].next_keyboard(),
         desc="Next keyboard layout",
@@ -94,7 +95,14 @@ keys = [
 groups_dict = {
     # Key: keymap for that group | Value: Group object
     "y": Group(name="web", matches=[Match(wm_class="Google-chrome")]),
-    "u": Group(name="dev", matches=[Match(wm_class="Alacritty")]),
+    "u": Group(
+        name="dev",
+        matches=[
+            Match(wm_class="Alacritty"),
+            Match(wm_class="Code"),
+            Match(wm_class="jetbrains-idea-ce"),
+        ],
+    ),
     "i": Group(name="slack", matches=[Match(wm_class="Slack")]),
     "o": Group(
         name="teams",
@@ -135,7 +143,7 @@ for k, v in groups_dict.items():
 
 default_layout_opts = {
     "border_width": 2,
-    "margin": 0,
+    "margin": 20,
     "border_focus": "#e1acff",
     "border_normal": "#1d2330",
     "border_on_single": True,
@@ -171,6 +179,7 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+                widget.CurrentScreen(active_text="⬤", inactive_text="", padding=10),
                 widget.KeyboardLayout(
                     configured_keyboards=["us", "us_intl"],
                     display_map={"us": "US", "us_intl": "BR"},
@@ -199,6 +208,7 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+                widget.CurrentScreen(active_text="⬤", inactive_text="", padding=10),
                 widget.Systray(icon_size=15, padding=10),
                 widget.Sep(padding=30),
                 widget.KeyboardLayout(
@@ -235,6 +245,7 @@ cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
+        Match(wm_class="Blueman-manager"),
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk

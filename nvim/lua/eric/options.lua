@@ -14,6 +14,10 @@ vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 vim.g.python3_host_prog = "/home/eric/.local/venv/bin/python"
 
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#3B4252", fg = "#5E81AC" })
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
 vim.cmd([[
 augroup FormatAutogroup
   autocmd!

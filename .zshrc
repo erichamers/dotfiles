@@ -122,7 +122,7 @@ alias g="git"
 
 export XDG_CONFIG_HOME=/home/eric/.config/
 export BROWSER=/usr/bin/google-chrome-stable
-export PATH=$PATH:/home/eric/.cargo/bin:/home/eric/.local/bin
+export PATH=$PATH:/home/eric/.cargo/bin:/home/eric/.local/bin:/usr/local/go/bin
 export AWS_VAULT_BACKEND=file
 
 # Pyenv config
@@ -131,3 +131,5 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias luamake=/home/eric/apps/lua-language-server/3rd/luamake/luamake
